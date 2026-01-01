@@ -1,0 +1,37 @@
+# ===============================
+# FRONTEND (React)
+# ===============================
+ak_dreamVista_frontend/node_modules/
+ak_dreamVista_frontend/dist/
+ak_dreamVista_frontend/build/
+
+# ===============================
+# BACKEND (Spring Boot)
+# ===============================
+spring-auth-app/target/
+*.class
+
+# ===============================
+# IDE FILES
+# ===============================
+.vscode/
+.idea/
+*.iml
+
+# ===============================
+# ENV & CONFIG
+# ===============================
+.env
+application-local.yml
+application-dev.yml
+
+# ===============================
+# OS FILES
+# ===============================
+.DS_Store
+Thumbs.db
+
+# ===============================
+# LOG FILES
+# ===============================
+*.log
