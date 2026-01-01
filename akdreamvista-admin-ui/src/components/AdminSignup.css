@@ -1,0 +1,50 @@
+.admin-signup-container {
+  width: 380px;
+  margin: 40px auto;
+  padding: 25px;
+  border-radius: 12px;
+  background: white;
+  box-shadow: 0 0 10px #00000022;
+}
+
+.admin-signup-form input {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0 15px;
+  border-radius: 7px;
+  border: 1px solid #ccc;
+}
+
+.admin-signup-form button {
+  width: 100%;
+  padding: 12px;
+  background: #fb6a19;
+  color: white;
+  font-size: 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.signup-message {
+  text-align: center;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-wrapper input {
+  width: 100%;
+  padding-right: 36px;
+}
+
+.eye-icon {
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+  font-size: 18px;
+}

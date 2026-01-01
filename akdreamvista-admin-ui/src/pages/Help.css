@@ -1,0 +1,155 @@
+:root {
+  --h-orange: #ff7800;
+  --h-dark: #1a1a1a;
+  --h-bg-grey: #f9f9f9;
+}
+
+.h-full-page { width: 100%; overflow-x: hidden; font-family: 'Plus Jakarta Sans', sans-serif; }
+
+/* --- REVEAL --- */
+.h-reveal { opacity: 0; transform: translateY(20px); transition: 0.8s ease-out; }
+.h-active { opacity: 1; transform: translateY(0); }
+
+/* --- HERO --- */
+.h-hero-edge {
+  height: 380px; width: 100%; position: relative;
+  background: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop') center/cover;
+  display: flex; align-items: center; justify-content: center; text-align: center; color: white;
+}
+.h-hero-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.6); }
+.h-hero-inner { position: relative; z-index: 2; }
+.h-hero-inner h1 { font-size: 3.2rem; font-weight: 800; }
+.h-hero-inner h1 span { color: var(--h-orange); }
+.h-tagline-edge {
+  background: rgba(255, 120, 0, 0.2); border: 1px solid var(--h-orange);
+  padding: 5px 20px; border-radius: 50px; display: inline-block; font-weight: 700; margin-bottom: 10px;
+}
+
+/* --- ZIG-ZAG ROWS --- */
+.h-row { width: 100%; padding: 45px 0; display: flex; justify-content: center; }
+.h-bg-alt { background-color: var(--h-bg-grey); }
+.h-content-box { width: 90%; max-width: 1100px; display: flex; align-items: center; gap: 50px; }
+.h-reverse { flex-direction: row-reverse; }
+
+.h-text-side { flex: 1.2; }
+.h-image-side { flex: 1; display: flex; justify-content: center; }
+
+.h-icon-box {
+  width: 50px; height: 50px; background: #fff5eb; color: var(--h-orange);
+  border-radius: 12px; display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem; margin-bottom: 15px;
+}
+
+.h-title-edge { font-size: 2.2rem; font-weight: 800; margin-bottom: 15px; }
+.h-title-edge::after { content: ''; display: block; width: 50px; height: 5px; background: var(--h-orange); margin-top: 10px; }
+
+/* --- IMAGE FRAME --- */
+.h-frame-standard {
+  width: 100%; max-width: 420px; height: 280px;
+  overflow: hidden; border-radius: 15px; box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+  border: 1px solid #eee;
+}
+.h-frame-standard img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+.h-frame-standard:hover img { transform: scale(1.05); }
+
+/* --- LISTS & BUTTONS --- */
+.h-list-edge { list-style: none; padding: 0; margin: 20px 0; }
+.h-list-edge li { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-weight: 600; }
+.h-list-edge i { color: var(--h-orange); }
+
+.h-btn-main {
+  background: var(--h-orange); color: white; padding: 12px 30px;
+  border-radius: 50px; text-decoration: none; font-weight: 700; display: inline-block;
+}
+
+.h-stats-edge { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
+.h-stat-item {
+  background: white; border-left: 4px solid var(--h-orange); padding: 15px;
+  border-radius: 8px; font-weight: 700; box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+/* --- FOOTER CTA --- */
+.h-cta-edge { width: 100%; background: var(--h-dark); padding: 60px 0; text-align: center; border-top: 5px solid var(--h-orange); }
+.h-cta-inner h3 { color: white; font-size: 2rem; margin-bottom: 10px; }
+.h-cta-inner p { color: #aaa; margin-bottom: 30px; }
+.h-actions { display: flex; justify-content: center; gap: 20px; }
+.h-btn-tel, .h-btn-wa { padding: 15px 35px; border-radius: 50px; text-decoration: none; font-weight: 800; display: flex; align-items: center; gap: 10px; transition: 0.3s; }
+.h-btn-tel { background: var(--h-orange); color: white; }
+.h-btn-wa { background: #25d366; color: white; }
+.h-btn-tel:hover, .h-btn-wa:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(255,120,0,0.3); }
+
+@media (max-width: 850px) {
+  .h-content-box, .h-reverse { flex-direction: column; text-align: center; gap: 30px; }
+  .h-title-edge::after { margin: 10px auto; }
+  .h-actions { flex-direction: column; align-items: center; }
+}
+/* --- UNIVERSAL BANNER DIMENSIONS (Apply to all Heros) --- */
+
+/* 1. Desktop / Large Window (Above 1200px) */
+.elv-hero-edge {
+  height: 380px; /* Standardized height as requested */
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 2. Laptop / Small Desktop (992px to 1200px) */
+@media (max-width: 1200px) {
+  .elv-hero-edge {
+    height: 340px; 
+  }
+  .elv-hero-content h1 {
+    font-size: 2.8rem;
+  }
+}
+
+/* 3. Tablet Dimension (768px to 991px) */
+@media (max-width: 991px) {
+  .elv-hero-edge {
+    height: 300px;
+  }
+  .elv-hero-content h1 {
+    font-size: 2.5rem;
+  }
+  .elv-stats-bar {
+    width: 95%;
+    margin-top: -30px; /* Pulls stats bar up on smaller screens */
+  }
+}
+
+/* 4. Mobile Dimension (Below 768px) */
+@media (max-width: 767px) {
+  .elv-hero-edge {
+    height: 280px; /* Compact height for mobile viewing */
+  }
+  
+  .elv-hero-content h1 {
+    font-size: 1.8rem; /* Prevents text overflow */
+    line-height: 1.2;
+  }
+
+  .elv-tagline {
+    font-size: 0.7rem;
+    padding: 4px 12px;
+  }
+
+  /* Adjusting Stats Bar for Mobile Stack */
+  .elv-stats-bar {
+    flex-direction: column;
+    padding: 20px;
+    gap: 15px;
+    margin: -20px auto 40px;
+  }
+
+  .elv-stat-divider {
+    width: 60%;
+    height: 1px;
+    background: #eee;
+  }
+  
+  .elv-stat strong {
+    font-size: 1.5rem;
+  }
+}

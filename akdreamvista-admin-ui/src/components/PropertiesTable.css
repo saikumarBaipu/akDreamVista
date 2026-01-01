@@ -1,0 +1,232 @@
+/* Wrapper */
+.table-wrapper {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 14px #0001;
+  font-family: Arial, sans-serif;
+}
+
+/* Header */
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.close-btn {
+  background: #ff7800;
+  color: #fff;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* Top controls */
+.datatable-top {
+  display: flex;
+  justify-content: space-between; /* LEFT & RIGHT */
+  align-items: center;
+  margin: 12px 0;
+}
+.datatable-top-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;              /* space between dropdown & search */
+  margin: 12px 0;
+}
+.entries-select span {
+  white-space: nowrap;
+}
+.entries-select {
+  display: flex;
+  align-items: center;
+  gap: 8px;              /* space between Show, select, entries */
+  font-weight: 600;
+}
+.entries-select select {
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.search-box input {
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  width: 220px;
+}
+/* =========================
+   RESPONSIVE (MOBILE)
+   ========================= */
+@media (max-width: 768px) {
+
+  /* Stack dropdown & search */
+  .datatable-top-left {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .entries-select {
+    width: 100%;
+  }
+
+  .entries-select select {
+    width: 100%;
+  }
+
+  .search-box {
+    width: 100%;
+  }
+
+  .search-box input {
+    width: 100%;
+  }
+
+  /* Make table horizontally scrollable */
+  .properties-table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  /* Footer stack */
+  .datatable-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .pagination {
+    align-self: flex-start;
+  }
+}
+
+/* Table */
+.properties-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.properties-table thead {
+  background: #f3f4f6;
+}
+/* Wrapper controls scrolling */
+.table-scroll-wrapper {
+  max-height: 420px;      /* vertical height */
+  overflow-y: auto;
+  overflow-x: auto;
+  width: 100%;
+  border: 1px solid #ddd;
+}
+
+/* Table must stay normal */
+.properties-table {
+  width: 100%;
+  min-width: 1100px;     /* 🔥 forces horizontal scroll */
+  border-collapse: collapse;
+}
+
+/* Sticky header */
+.properties-table thead th {
+  position: sticky;
+  top: 0;
+  background: #ffffff;
+  z-index: 10;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Optional styling */
+.properties-table th,
+.properties-table td {
+  padding: 10px;
+  white-space: nowrap;   /* 🔥 prevents column breaking */
+}
+
+.properties-table th,
+.properties-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #eee;
+}
+
+.status-badge {
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.status-badge.New {
+  background: #e0ffe4;
+  color: #0f8a2c;
+}
+
+.status-badge.Available {
+  background: #e3f2fd;
+  color: #0d47a1;
+}
+
+.status-badge.Sold {
+  background: #fdecea;
+  color: #c62828;
+}
+
+.status-badge.Under-Construction {
+  background: #fff3cd;
+  color: #856404;
+}
+
+
+/* Action icons */
+.action-icons svg {
+  margin-right: 10px;
+  cursor: pointer;
+  color: #555;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.action-icons svg:hover {
+  color: #ff7800;
+  transform: scale(1.1);
+}
+
+/* Footer */
+.datatable-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.entries-info {
+  font-style: italic;
+  font-size: 13px;
+}
+
+/* Pagination */
+.pagination button {
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  background: #fff;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.pagination button.active {
+  background: #3276b1;
+  color: #fff;
+  border-color: #3276b1;
+}
+
+.pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

@@ -1,0 +1,249 @@
+:root {
+  --elv-orange: #ff7800;
+  --elv-dark: #1a1a1a;
+  --elv-white: #ffffff;
+  --elv-light: #f8f9fa;
+  --elv-glow: rgba(255, 120, 0, 0.3);
+}
+
+.elv-main-wrapper {
+  width: 100%;
+  overflow-x: hidden;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* --- REVEAL ANIMATION --- */
+.reveal { opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; }
+.reveal.active { opacity: 1; transform: translateY(0); }
+
+/* --- HERO EDGE-TO-EDGE --- */
+.elv-hero-edge {
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+
+  /* Smart scaling */
+  height: clamp(60vh, 75vh, 88vh);
+  min-height: 520px;
+  max-height: 900px;
+}
+
+
+@media (min-width: 1440px) {
+  .elv-hero-edge {
+    height: 85vh;
+    min-height: 650px;
+  }
+
+  .elv-hero-content h1 {
+    font-size: 4rem;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .elv-hero-edge {
+    height: 75vh;
+    min-height: 580px;
+  }
+
+  .elv-hero-content h1 {
+    font-size: 3.2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .elv-hero-edge {
+    height: 65svh; /* mobile-safe viewport */
+    min-height: 420px;
+  }
+
+  .elv-hero-content h1 {
+    font-size: 2.2rem;
+    line-height: 1.2;
+  }
+
+  .elv-tagline {
+    font-size: 0.75rem;
+    padding: 5px 16px;
+  }
+}
+
+.elv-hero-edge {
+  height: 100svh;
+  max-height: 900px;
+}
+
+.elv-hero-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url("https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=2070&auto=format&fit=crop");
+  background-size: cover;
+  background-position: center;
+  animation: elvZoom 20s infinite alternate;
+}
+
+@keyframes elvZoom { from { transform: scale(1); } to { transform: scale(1.1); } }
+
+.elv-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.4));
+}
+
+.elv-hero-content { position: relative; z-index: 5; color: white; padding: 20px; }
+.elv-tagline {
+  background: rgba(255, 120, 0, 0.2);
+  border: 1px solid var(--elv-orange);
+  padding: 6px 20px;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  margin-bottom: 20px;
+  display: inline-block;
+}
+
+.elv-hero-content h1 { font-size: 3.5rem; font-weight: 800; margin-bottom: 15px; }
+.elv-hero-content h1 span { color: var(--elv-orange); }
+
+.elv-btn-primary {
+  display: inline-block;
+  background: var(--elv-orange);
+  color: white;
+  padding: 15px 40px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 800;
+  margin-top: 25px;
+  box-shadow: 0 10px 20px var(--elv-glow);
+  transition: 0.3s;
+}
+
+/* --- STATS BAR --- */
+.elv-stats-bar {
+  max-width: 1000px;
+  margin: -50px auto 60px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+  position: relative;
+  z-index: 10;
+}
+
+.elv-stat { text-align: center; }
+.elv-stat strong { display: block; font-size: 2rem; color: var(--elv-orange); }
+.elv-stat span { font-weight: 700; color: #666; font-size: 0.9rem; }
+.elv-stat-divider { width: 1px; height: 50px; background: #eee; }
+
+/* --- SECTION HEADERS --- */
+.elv-section { padding: 60px 5%; }
+.section-header { text-align: center; margin-bottom: 50px; }
+.elv-accent-title { font-size: 2.2rem; font-weight: 800; color: var(--elv-dark); margin-bottom: 10px; }
+.elv-accent-title::after { content: ''; display: block; width: 50px; height: 5px; background: var(--elv-orange); margin: 10px auto; border-radius: 10px; }
+
+/* --- SERVICE CARDS GRID --- */
+.elv-grid-standard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.elv-service-card {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  border: 1px solid #eee;
+  transition: 0.4s;
+}
+
+.elv-card-img-wrap { width: 100%; height: 260px; overflow: hidden; }
+.elv-card-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s; }
+
+.elv-service-card:hover { transform: translateY(-10px); border-color: var(--elv-orange); }
+.elv-service-card:hover img { transform: scale(1.1); }
+
+.elv-card-body { padding: 25px; }
+.elv-card-body h3 { font-size: 1.4rem; color: var(--elv-dark); margin-bottom: 10px; }
+.elv-card-body p { color: #555; font-size: 0.95rem; line-height: 1.6; }
+
+/* --- DARK FEATURES SECTION --- */
+.elv-features-dark {
+  background: var(--elv-dark);
+  padding: 80px 5%;
+  color: white;
+  width: 100%;
+}
+
+.section-header.light h2 { color: white; }
+
+.elv-feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 25px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.elv-feat-item {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 30px;
+  border-radius: 15px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.elv-feat-icon {
+  font-size: 1.8rem;
+  color: var(--elv-orange);
+  text-shadow: 0 0 10px var(--elv-glow);
+}
+
+.elv-feat-text h4 { font-size: 1.1rem; margin-bottom: 5px; }
+.elv-feat-text p { font-size: 0.85rem; color: #aaa; }
+
+/* --- CTA SECTION --- */
+.elv-cta-section {
+  padding: 80px 20px;
+  text-align: center;
+  background: var(--elv-light);
+}
+
+.elv-btn-whatsapp {
+  background: #25d366;
+  color: white;
+  padding: 18px 45px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 30px;
+  transition: 0.3s;
+}
+
+.elv-btn-whatsapp:hover { transform: scale(1.05); box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3); }
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+  .elv-hero-content h1 { font-size: 2.2rem; }
+  .elv-stats-bar { flex-direction: column; gap: 20px; width: 90%; }
+  .elv-stat-divider { width: 50px; height: 1px; }
+}
+@supports (height: 100svh) {
+  .elv-hero-edge {
+    height: clamp(65svh, 75svh, 85svh);
+  }
+}

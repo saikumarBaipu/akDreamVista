@@ -1,0 +1,13 @@
+.app-shell {
+  display: flex;
+  min-height: calc(100vh - 120px); /* header + footer */
+}
+
+.app-content {
+  flex: 1;
+  padding: 24px;
+  background: #f6f7f8;
+  padding-top: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+}

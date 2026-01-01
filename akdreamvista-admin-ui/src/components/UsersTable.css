@@ -1,0 +1,188 @@
+/* =========================
+   GLOBAL
+   ========================= */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* =========================
+   TABLE WRAPPER
+   ========================= */
+.table-wrapper {
+  background: #ffffff;
+  padding: 20px;
+  margin-top: 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+
+/* =========================
+   HEADER
+   ========================= */
+.table-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid #eee;
+}
+
+.table-header h3 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 600;
+  color: #222;
+}
+
+.close-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid #ff7800;
+  background: transparent;
+  color: #ff7800;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: all 0.2s ease;
+}
+
+.close-btn:hover {
+  background: #ff7800;
+  color: #ffffff;
+  transform: rotate(90deg);
+}
+
+/* =========================
+   SCROLL WRAPPER (IMPORTANT)
+   ========================= */
+.table-scroll-wrapper {
+  max-height: 420px;
+  overflow: auto;                 /* ✅ both axes */
+  position: relative;             /* ✅ required for sticky */
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+/* =========================
+   TABLE
+   ========================= */
+.users-table {
+  width: 100%;
+  min-width: 900px;               /* ✅ horizontal scroll */
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.users-table th,
+.users-table td {
+  padding: 12px 14px;
+  text-align: left;
+  white-space: nowrap;
+  border-bottom: 1px solid #eee;
+  background: #ffffff;
+}
+
+/* =========================
+   STICKY HEADER (WORKING)
+   ========================= */
+.users-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #ffffff;
+  box-shadow: 0 2px 3px rgba(0,0,0,0.06);
+}
+
+/* =========================
+   ROW HOVER
+   ========================= */
+.users-table tbody tr:hover {
+  background: #fafafa;
+}
+
+/* =========================
+   ROLE BADGES
+   ========================= */
+.role-badge {
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.role-badge.ADMIN {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.role-badge.USER {
+  background: #e3f2fd;
+  color: #0d47a1;
+}
+
+/* =========================
+   EMPTY / LOADING
+   ========================= */
+.users-empty {
+  text-align: center;
+  padding: 25px;
+  font-style: italic;
+  color: #777777;
+}
+
+/* =========================
+   PAGINATION (OUTSIDE SCROLL)
+   ========================= */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.pagination button {
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  background: #f3f4f6;
+  cursor: pointer;
+}
+
+.pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+
+
+@media (max-width: 768px) {
+  .table-header {
+    flex-direction: row;          /* ❌ no stacking */
+    align-items: center;
+  }
+
+  .close-btn {
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
+  }
+}
+
+.table-wrapper {
+  min-height: 0;
+}

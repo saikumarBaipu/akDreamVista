@@ -1,0 +1,275 @@
+@import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css";
+
+/* ================= BASE ================= */
+.header-container {
+  width: 100%;
+  font-family: "Poppins", sans-serif;
+}
+
+/* ================= NAV BAR ================= */
+.nav-section {
+  width: 100%;
+  background: #ffffff;
+}
+
+.nav-container {
+  max-width: 1300px;
+  margin: auto;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 2px solid #ff7800;
+  border-bottom: 2px solid #ff7800;
+}
+
+/* ================= LEFT ================= */
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.nav-logo {
+  height: 55px;
+  width: auto;
+}
+
+/* ================= NAV LINKS ================= */
+.nav-links {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  gap: 20px;
+  margin-bottom: 0px;
+}
+/* ================= TOP BLACK BAR ================= */
+.top-black-bar {
+  background: #111;
+  color: #fff;
+  font-size: 13px;
+}
+
+.top-black-inner {
+  max-width: 1300px;
+  margin: auto;
+  padding: 6px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.top-left {
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: #ff7800;
+}
+
+/* Container for the timer pill */
+.top-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ak-session-badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #1a1a1a; /* Dark background matching the image */
+  padding: 6px 20px;
+  border-radius: 50px; /* Makes it pill-shaped */
+  border: 1px solid #ff7800; /* Orange border */
+  font-family: 'JetBrains Mono', 'Courier New', monospace; /* Monospace for numbers */
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+/* Icon style */
+.ak-session-badge i {
+  color: #ff7800;
+  font-size: 16px;
+}
+
+/* "Expires in" text */
+.ak-session-badge span:first-of-type {
+  color: #ff7800;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+/* The actual numbers */
+#session-timer {
+  color: #ff7800;
+  font-weight: 700;
+  letter-spacing: 1px;
+  min-width: 75px; /* Prevents text jumping */
+}
+
+/* Optional: Add a subtle glow effect */
+.ak-session-badge:hover {
+  box-shadow: 0 0 10px rgba(255, 120, 0, 0.2);
+  border-color: #ffffff;
+}
+
+.top-center span {
+  color: #fff;
+  margin-left: 4px;
+}
+
+.top-right a {
+  color: #ff7800;
+  font-size: 15px;
+}
+
+.top-right a:hover {
+  color: #ff7800;
+}
+
+
+/* ACTIVE / HOVER */
+.nav-links a:hover,
+.nav-links a.active,
+.nav-link-btn:hover {
+  color: #ff6b1e;
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -6px;
+  width: 0;
+  height: 3px;
+  background: #ff6b1e;
+  transform: translateX(-50%);
+  transition: width 0.25s ease;
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+  width: 26px;
+}
+
+/* ================= RIGHT ================= */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+/* LOGIN / LOGOUT */
+.login-link,
+.logout-link {
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  cursor: pointer;
+  color: #ff6b1e;
+}
+
+.logout-link:hover,
+.login-link:hover {
+  text-decoration: underline;
+}
+
+/* ================= PHONE ================= */
+.phone-inline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background: #ff6b1e;
+  color: #ffffff;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* ================= ADMIN HEADER ================= */
+.nav-right .logout-link:only-child {
+  margin-right: 10px;
+}
+
+/* ================= RESPONSIVE ================= */
+
+/* TABLET */
+@media (max-width: 992px) {
+  .nav-container {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .nav-links {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .nav-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .nav-left {
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    gap: 14px;
+    
+  }
+
+  .nav-right {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .phone-inline {
+    width: 100%;
+    justify-content: center;
+    font-size: 16px;
+  }
+}
+
+/* SMALL MOBILE */
+@media (max-width: 480px) {
+  .nav-links a,
+  .nav-link-btn {
+    font-size: 15px;
+  }
+}
+.admin-nav-links li a {
+  text-decoration: none;
+  color: #555; /* Default color */
+  font-weight: 600;
+  padding: 8px 12px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+/* The Active Link Style */
+.admin-nav-links li a.active {
+  color: #fb6a19 !important;
+}
+
+/* Premium underline for active link */
+.admin-nav-links li a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 35px;
+  right: 12px;
+  height: 3px;
+  background: #fb6a19;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(251, 106, 25, 0.4);
+}
+
+.admin-nav-links li a:hover {
+  color: #fb6a19;
+}

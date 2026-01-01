@@ -1,0 +1,141 @@
+:root {
+  --ak-orange: #ff7800;
+  --ak-bg: #ffffff;
+  --ak-dark: #121212;
+}
+
+.ak-help-container {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: var(--ak-bg);
+  color: #1a1a1a;
+  line-height: 1.6;
+}
+
+.ak-help-wrapper {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Animations */
+.ak-help-reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s cubic-bezier(0.2, 1, 0.2, 1);
+}
+
+.ak-help-show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Header */
+.ak-help-header {
+  padding: 100px 0 60px;
+  text-align: center;
+}
+
+.ak-help-eyebrow {
+  color: var(--ak-orange);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 0.85rem;
+}
+
+.ak-help-header h1 {
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  margin: 15px 0;
+  font-weight: 800;
+}
+
+.ak-help-header h1 span { color: var(--ak-orange); }
+
+/* Grid */
+.ak-help-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  padding-bottom: 80px;
+}
+
+.ak-help-card {
+  padding: 40px;
+  border-radius: 20px;
+  background: #fdfdfd;
+  border: 1px solid #f0f0f0;
+  transition: 0.3s;
+}
+
+.ak-help-card:hover {
+  border-color: var(--ak-orange);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.05);
+  transform: translateY(-5px);
+}
+
+.ak-help-icon-circle {
+  width: 60px;
+  height: 60px;
+  background: #fff5eb;
+  color: var(--ak-orange);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin-bottom: 25px;
+}
+
+.ak-help-text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+  color: var(--ak-orange);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+/* Contact Strip */
+.ak-help-contact-area {
+  padding: 60px 0 100px;
+}
+
+.ak-help-cta-box {
+  background: var(--ak-dark);
+  padding: 50px;
+  border-radius: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+}
+
+.ak-help-actions {
+  display: flex;
+  gap: 15px;
+}
+
+.ak-help-btn-tel, .ak-help-btn-wa {
+  padding: 15px 30px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: 0.3s;
+}
+
+.ak-help-btn-tel { background: var(--ak-orange); color: #fff; }
+.ak-help-btn-wa { background: #25d366; color: #fff; }
+
+.ak-help-btn-tel:hover, .ak-help-btn-wa:hover {
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .ak-help-cta-box { flex-direction: column; text-align: center; gap: 30px; }
+  .ak-help-actions { flex-direction: column; width: 100%; }
+}

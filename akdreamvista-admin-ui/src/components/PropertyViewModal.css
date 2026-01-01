@@ -1,0 +1,173 @@
+/* =========================================
+   1. OVERLAY & GLASS CONTAINER
+   ========================================= */
+.ap-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(11, 20, 55, 0.7);
+  backdrop-filter: blur(12px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  padding: 20px;
+}
+
+.ap-modal-box {
+  background: linear-gradient(135deg, #fffcf9 0%, #fff 100%);
+  width: 950px;
+  max-width: 100%;
+  max-height: 90vh;
+  border-radius: 30px;
+  border: 2px solid #ff7800;
+  box-shadow: 0 30px 60px rgba(255, 120, 0, 0.15);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  animation: apSlideUp 0.4s ease-out;
+}
+
+@keyframes apSlideUp {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* =========================================
+   2. HEADER (Orange Accents)
+   ========================================= */
+.ap-modal-header {
+  padding: 25px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  border-bottom: 2px solid #fff1e6;
+}
+
+.ap-modal-header h3 {
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: #0b1437;
+  letter-spacing: 1px;
+}
+
+.ap-modal-header h3 span { color: #ff7800; }
+
+.ap-close-btn {
+  background: #ff7800;
+  color: white;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(255, 120, 0, 0.3);
+  transition: 0.3s;
+}
+
+/* =========================================
+   3. BODY GRID (Image on Right)
+   ========================================= */
+.ap-modal-body {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr; /* Details Left, Image Right */
+  padding: 40px;
+  gap: 40px;
+  overflow-y: auto;
+}
+
+/* LEFT INFO SECTION */
+.ap-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+}
+
+.info-item label {
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #ff7800;
+  font-weight: 800;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.info-item p {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1b2559;
+  padding: 12px 18px;
+  background: #fff;
+  border: 1.5px solid #ffe8d6;
+  border-radius: 12px;
+  transition: 0.3s;
+}
+
+.info-item p:hover { border-color: #ff7800; }
+
+/* Status Pill */
+.status-pill {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-weight: 800;
+  font-size: 14px;
+}
+.status-pill.paid { background: #e6fff5; color: #05cd99; border: 1px solid #05cd99; }
+.status-pill.unpaid { background: #fff5f4; color: #ee5d50; border: 1px solid #ee5d50; }
+
+.ap-yt-btn {
+  margin-top: 30px;
+  display: flex;
+  background: linear-gradient(90deg, #ff7800, #ff5000);
+  color: white !important;
+  text-decoration: none;
+  padding: 16px;
+  border-radius: 15px;
+  font-weight: 800;
+  justify-content: center;
+  box-shadow: 0 10px 20px rgba(255, 120, 0, 0.2);
+}
+
+/* RIGHT VISUALS SECTION */
+.ap-carousel {
+  height: 350px;
+  border-radius: 25px;
+  overflow: hidden;
+  position: relative;
+  border: 5px solid #fff;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+}
+
+.ap-carousel img { width: 100%; height: 100%; object-fit: cover; }
+
+.img-counter {
+  position: absolute;
+  bottom: 15px; right: 15px;
+  background: rgba(0,0,0,0.6);
+  color: white;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.ap-price-card {
+  margin-top: 25px;
+  background: linear-gradient(135deg, #ff7800 0%, #ff9d4d 100%);
+  color: white;
+  padding: 20px;
+  border-radius: 20px;
+  text-align: center;
+}
+
+.price-val { font-size: 2rem; font-weight: 900; }
+
+/* =========================================
+   4. RESPONSIVENESS
+   ========================================= */
+@media (max-width: 900px) {
+  .ap-modal-body { grid-template-columns: 1fr; }
+  .ap-modal-box { width: 95%; height: 95vh; }
+  .ap-modal-visuals { order: -1; } 
+  .ap-info-grid { grid-template-columns: 1fr; }
+}

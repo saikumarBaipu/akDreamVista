@@ -1,0 +1,137 @@
+/* Section Styles */
+.section {
+  padding: 60px 20px;
+  background-color: #fdfdfd;
+  overflow: hidden;
+}
+
+.section-heading h2 {
+  color: #fb6a19;
+  font-size: 2.2rem;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 5px;
+  
+}
+
+.section-heading p {
+  text-align: center;
+  color: #666;
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  margin-bottom: 40px;
+}
+
+/* Viewport: visible area */
+.slider-viewport {
+ max-width: 1200px;
+  margin: 0 auto;
+  overflow: hidden; 
+  padding: 20px 5px;
+}
+
+
+
+
+
+
+
+.property-card:hover {
+ transform: translateY(-8px);
+  box-shadow: 0 12px 25px rgba(251, 106, 25, 0.2);
+}
+
+/* Image: Fixed 330x180 */
+/* Card: Border updated to #fb6a19 */
+.property-card {
+ min-width: 330px;
+  max-width: 330px;
+  flex: 0 0 330px;
+  background: #fff;
+  border: 2px solid #fb6a19; /* 2px is cleaner than 3px */
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-sizing: border-box;
+}
+
+/* Slider Track: Transition smooth ga undadaniki */
+.slider-track {
+display: flex;
+  gap: 25px; /* Gap exactly 25px */
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+.property-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
+}
+
+.property-image-wrapper img {
+ width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.property-card:hover .property-image-wrapper img {
+  transform: scale(1.1); /* Zoom effect on hover */
+}
+.property-status {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #fb6a19;
+  color: #fff;
+  padding: 5px 12px;
+  font-size: 11px;
+  font-weight: bold;
+  border-radius: 4px;
+  z-index: 2;
+}
+
+/* Content Styles */
+.property-content {
+  padding: 15px;
+}
+
+.property-title {
+ font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 700;
+}
+
+.property-meta {
+ display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: #fb6a19;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.property-meta i {
+  margin-right: 5px;
+}
+.property-excerpt {
+  /* 1. Limit the number of lines */
+  line-clamp: 2;
+  -webkit-line-clamp: 2; /* Required for Chrome, Safari, Edge, and newer Firefox */
+
+  /* 2. Set the display mode to a box that supports clamping */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+
+  /* 3. Hide the overflowing text */
+  overflow: hidden;
+
+  /* 4. Add the ellipsis (...) */
+  text-overflow: ellipsis;
+}
