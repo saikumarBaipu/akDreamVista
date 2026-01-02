@@ -49,7 +49,7 @@ export default function PropertyEditModal({ property, onClose, onUpdate }) {
     data.append("property", JSON.stringify(formData));
 
     try {
-      const res = await fetch(`http://3.237.234.18:8080/api/properties/update/${property.id}`, {
+      const res = await fetch(`http://23.20.0.192:8080/api/properties/update/${property.id}`, {
         method: "PUT",
         headers: {
           "Authorization": `Bearer ${token}`,

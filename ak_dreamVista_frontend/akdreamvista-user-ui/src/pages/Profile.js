@@ -7,7 +7,7 @@ export default function Profile() {
     const fetchProfile = async () => {
       const token = localStorage.getItem("token");
 
-      const res = await fetch("http://3.237.234.18:8080/api/user/profile", {
+      const res = await fetch("http://23.20.0.192:8080/api/user/profile", {
         method: "GET",
         headers: {
           "Authorization": `Bearer ${token}`,

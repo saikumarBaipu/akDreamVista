@@ -17,7 +17,7 @@ export default function AdminSignup() {
     if (password.length < 3) return setMsg("⚠ Password must be 6+ characters");
 
     try {
-      const res = await fetch("http://3.237.234.18:8080/api/admin/signup", {
+      const res = await fetch("http://23.20.0.192:8080/api/admin/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),

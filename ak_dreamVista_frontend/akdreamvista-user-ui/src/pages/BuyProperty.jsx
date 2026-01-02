@@ -23,7 +23,7 @@ export default function BuyProperty() {
       if (token) headers["Authorization"] = `Bearer ${token}`;
 
       try {
-        const res = await fetch("http://3.237.234.18:8080/api/properties/all", { headers });
+        const res = await fetch("http://23.20.0.192:8080/api/properties/all", { headers });
         if (res.ok) {
           const data = await res.json();
           setProperties(data);

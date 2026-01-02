@@ -1,4 +1,4 @@
-const BASE_URL = "http://3.237.234.18:8080";
+const BASE_URL = "http://23.20.0.192:8080";
 
 /* 🔓 PUBLIC APIs (NO TOKEN) */
 export const fetchAllProperties = () => {

@@ -19,7 +19,7 @@ const [editingProperty, setEditingProperty] = useState(null);
   const token = localStorage.getItem("token");
   const handleDownloadInvoice = async (propertyId) => {
   try {
-    const response = await fetch(`http://3.237.234.18:8080/api/payment/invoice/property/${propertyId}`, {
+    const response = await fetch(`http://23.20.0.192:8080/api/payment/invoice/property/${propertyId}`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`, // Pass the token here
@@ -65,15 +65,15 @@ const formatPrice = (val) => {
       console.error("No token found");
       return;
     }
-let url = "http://3.237.234.18:8080/api/properties/all";
+let url = "http://23.20.0.192:8080/api/properties/all";
 
     
 
     if (filter === "PAID_PROPERTIES") {
-      url = "http://3.237.234.18:8080/api/properties/by-fee-status?paid=true";
+      url = "http://23.20.0.192:8080/api/properties/by-fee-status?paid=true";
     }
     if (filter === "UNPAID_PROPERTIES") {
-      url = "http://3.237.234.18:8080/api/properties/by-fee-status?paid=false";
+      url = "http://23.20.0.192:8080/api/properties/by-fee-status?paid=false";
     }
 
     const fetchData = async () => {
@@ -126,7 +126,7 @@ let url = "http://3.237.234.18:8080/api/properties/all";
       setDeletingId(id);
 
       const res = await fetch(
-        `http://3.237.234.18:8080/api/properties/${id}`,
+        `http://23.20.0.192:8080/api/properties/${id}`,
         {
           method: "DELETE",
           headers: {

@@ -24,7 +24,7 @@ export default function Login() {
     setMessage("");
 
     try {
-        const response = await fetch("http://3.237.234.18:8080/api/auth/signin", {
+        const response = await fetch("http://23.20.0.192:8080/api/auth/signin", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, password }),

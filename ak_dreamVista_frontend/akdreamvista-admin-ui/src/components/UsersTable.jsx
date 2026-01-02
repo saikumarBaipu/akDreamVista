@@ -15,7 +15,7 @@ export default function UsersTable({ onClose }) {
  useEffect(() => {
   const token = localStorage.getItem("token");
 
-  fetch("http://3.237.234.18:8080/api/user/all", {
+  fetch("http://23.20.0.192:8080/api/user/all", {
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
