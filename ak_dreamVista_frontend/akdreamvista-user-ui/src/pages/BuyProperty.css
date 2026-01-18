@@ -8,7 +8,7 @@
 
 /* Background Color for whole page */
 .buy-page-wrapper {
-    background-color: #ffc594;
+    background-color: #ffffff;
     min-height: 100vh;
     width: 100%;
     padding: 20px 0;
@@ -20,10 +20,38 @@
     margin: 0 auto;
     padding: 0 15px;
 }
+.card-link-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+}
+.card-media {
+  position: relative;
+}
+/* Layout for Category and Code */
+.card-meta-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
 
+.p-code {
+  font-size: 1.1rem;
+  color: #888;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.p-category {
+  /* Your existing category styles */
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: #007bff; /* Example color */
+}
 /* Title Styling */
 .main-page-title {
-    color: white;
+    color: black;
     text-align: center;
    
     font-weight: 900;
@@ -88,12 +116,16 @@
 .premium-property-card:hover { transform: translateY(-8px); }
 
 .card-media { position: relative; height: 180px; }
-.card-media img { width: 100%; height: 100%; object-fit: cover; }
+.card-media img { width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image fills the 180px height without stretching */
+    transition: transform 0.4s ease; }
 .status-tag {
     position: absolute; top: 12px; right: 12px;
     background: var(--brand-orange); color: white;
     padding: 4px 10px; border-radius: 10px; font-size: 0.65rem; font-weight: 800;
 }
+.p-code-label { font-size: 1.1rem; color: var(--brand-dark); margin: 4px 0; font-weight: 700; }
 
 .card-body { padding: 18px; }
 .p-category { color: var(--brand-orange); font-size: 0.65rem; font-weight: 800; text-transform: uppercase; }
@@ -153,4 +185,16 @@
 @media (max-width: 480px) {
     .main-page-title { font-size: 1.5rem; }
     .card-body { padding: 15px; }
+}
+
+.card-media.clickable {
+  cursor: pointer;
+}
+
+.card-media.clickable:hover img {
+  transform: scale(1.05);
+}
+
+.card-media img {
+  transition: transform 0.4s ease;
 }

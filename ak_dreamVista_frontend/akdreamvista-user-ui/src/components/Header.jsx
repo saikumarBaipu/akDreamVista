@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useCallback } from "react";
-import { NavLink, useNavigate, useLocation } from "react-router-dom";
-import { FaPhone, FaRegClock, FaFacebookF } from "react-icons/fa";
+import React, { useEffect, useState, useCallback, useRef } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { FaPhone, FaRegClock, FaUserCircle, FaChevronDown, FaFileInvoice, FaKey, FaSignOutAlt } from "react-icons/fa";
 import "./Header.css";
 import logo from "../assets/images/logo-ak-dreamvista.png";
 
@@ -14,37 +14,33 @@ const formatTime = (seconds) => {
 
 export default function Header() {
   const navigate = useNavigate();
-  const location = useLocation();
-
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
-  const [role, setRole] = useState(localStorage.getItem("role"));
   const [timeLeft, setTimeLeft] = useState("");
+  const [showDropdown, setShowDropdown] = useState(false);
+  const dropdownRef = useRef(null);
 
-  /* ================= HANDLERS ================= */
+  // Existing Logout Logic
   const handleLogout = useCallback(() => {
-    // Capture role BEFORE clearing storage
-    const currentRole = localStorage.getItem("role") || role;
-    
     localStorage.clear();
     setIsLoggedIn(false);
-    setRole(null);
     setTimeLeft("");
+    setShowDropdown(false);
     window.dispatchEvent(new Event("authChange"));
+    navigate("/");
+  }, [navigate]);
 
-    // REDIRECT LOGIC
-    if (currentRole === "ADMIN") {
-      navigate("/admin-login");
-    } else {
-      navigate("/"); // Users always go Home
-    }
-  }, [navigate, role]);
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowDropdown(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
-  const handleBuyClick = () => {
-    if (!isLoggedIn) navigate("/login");
-    else navigate("/buy");
-  };
-
-  /* ================= SESSION TIMER LOGIC ================= */
+  // Existing Session Timer Logic
   useEffect(() => {
     if (!isLoggedIn) {
       setTimeLeft("");
@@ -56,17 +52,16 @@ export default function Header() {
       const loginTime = localStorage.getItem("loginTime");
 
       if (!expiresIn || !loginTime) {
-        setTimeLeft("00:00:00");
+        handleLogout();
         return;
       }
 
-      const expiryTimestamp = Number(loginTime) + Number(expiresIn) * 1000;
+      const expiryTimestamp = Number(loginTime) + Number(expiresIn);
       const diffInSeconds = Math.floor((expiryTimestamp - Date.now()) / 1000);
 
       if (diffInSeconds <= 0) {
         clearInterval(interval);
-        setTimeLeft("EXPIRED");
-        handleLogout(); // This triggers the redirect
+        handleLogout();
       } else {
         setTimeLeft(formatTime(diffInSeconds));
       }
@@ -75,83 +70,82 @@ export default function Header() {
     return () => clearInterval(interval);
   }, [isLoggedIn, handleLogout]);
 
-  /* ================= AUTH SYNC ================= */
-  useEffect(() => {
-    const syncAuth = () => {
-      setIsLoggedIn(!!localStorage.getItem("token"));
-      setRole(localStorage.getItem("role"));
-    };
-    window.addEventListener("authChange", syncAuth);
-    window.addEventListener("storage", syncAuth);
-    return () => {
-      window.removeEventListener("authChange", syncAuth);
-      window.removeEventListener("storage", syncAuth);
-    };
-  }, []);
-
   return (
     <header className="header-container">
+      {/* Top Black Bar */}
       <div className="top-black-bar">
         <div className="top-black-inner">
-          <div className="top-left">AK DreamVista</div>
-
+          <div className="top-left-text">AK DreamVista</div>
           {isLoggedIn && (
-            <div className="top-center">
-              <div className="ak-session-badge">
-                <FaRegClock />
-                <span>Expires in: </span>
-                <span className="timer-countdown">{timeLeft || "Calculating..."}</span>
-              </div>
+            <div className="ak-session-badge">
+              <FaRegClock />
+              <span>Expires in: </span>
+              <span className="timer-countdown">{timeLeft || "Calculating..."}</span>
             </div>
           )}
-
-          {/* <div className="top-right">
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
-              <FaFacebookF />
-            </a>
-          </div> */}
         </div>
       </div>
 
       <div className="nav-section">
         <div className="nav-container">
-          <div className="nav-left">
-            <img src={logo} alt="logo" className="nav-logo" onClick={() => navigate("/")} style={{ cursor: "pointer" }} />
-
-            {role !== "ADMIN" ? (
-              <ul className="nav-links">
-                <li><NavLink to="/" end>HOME</NavLink></li>
-                <li><span className="nav-link-btn" onClick={handleBuyClick}>BUY A PROPERTY</span></li>
-                <li><NavLink to="/sell">SELL A PROPERTY</NavLink></li>
-                <li><NavLink to="/construct">CONSTRUCT</NavLink></li>
-                <li><NavLink to="/elevators">ELEVATORS</NavLink></li>
-                <li><NavLink to="/about">ABOUT US</NavLink></li>
-                <li><NavLink to="/help">HELP</NavLink></li>
-                {!isLoggedIn && <li><NavLink to="/login" className="login-link">USER LOGIN</NavLink></li>}
-              </ul>
-            ) : (
-              <ul className="nav-links admin-nav-links">
-                <li><NavLink to="/admin-dashboard" end>Dashboard</NavLink></li>
-                <li><NavLink to="/add-property">Add Property</NavLink></li>
-                <li><NavLink to="/admin-dashboard" state={{ usersOnly: true }} className={({ isActive }) => (isActive && location.state?.usersOnly ? "active" : "")}>Customers</NavLink></li>
-                <li><NavLink to="/admin-dashboard" state={{ openTable: "ALL_PROPERTIES" }} className={({ isActive }) => (isActive && location.state?.openTable === "ALL_PROPERTIES" ? "active" : "")}>Properties</NavLink></li>
-                <li><NavLink to="/admin-dashboard" state={{ openTable: "INVOICES" }} className={({ isActive }) => (isActive && location.state?.openTable === "INVOICES" ? "active" : "")}>Invoices</NavLink></li>
-              </ul>
-            )}
+          
+          {/* 1. Logo Section */}
+          <div className="logo-box" onClick={() => navigate("/")} style={{ cursor: 'pointer' }}>
+            <img src={logo} alt="AK DreamVista Logo" className="premium-logo" />
           </div>
 
-          <div className="nav-right">
-            {role !== "ADMIN" && (
-              <div className="phone-inline">
-                <FaPhone /> +91 83280 41624
-              </div>
-            )}
-            {isLoggedIn && (
-              <span className="logout-link" onClick={handleLogout} style={{ cursor: "pointer" }}>
-                LOGOUT
-              </span>
-            )}
+          {/* 2. Menu Links */}
+          <ul className="nav-links">
+            <li><NavLink to="/" end>HOME</NavLink></li>
+            <li><NavLink to="/buy">BUY A PROPERTY</NavLink></li>
+            <li><NavLink to="/sell">SELL A PROPERTY</NavLink></li>
+            <li><NavLink to="/construct">CONSTRUCT</NavLink></li>
+            <li><NavLink to="/elevators">ELEVATORS</NavLink></li>
+            <li><NavLink to="/about">ABOUT US</NavLink></li>
+          </ul>
+
+          {/* 3. Right Side - Contact & User Profile */}
+          <div className="nav-right-actions">
+            <div className="phone-badge">
+              <FaPhone /> <span>+91 83280 41624</span>
+            </div>
+            
+            <div className="auth-box" ref={dropdownRef}>
+              {!isLoggedIn ? (
+                <NavLink to="/login" className="login-link">
+  USER LOGIN
+</NavLink>
+
+              ) : (
+                <div className="profile-dropdown-container">
+                  <div 
+                    className="profile-trigger" 
+                    onClick={() => setShowDropdown(!showDropdown)}
+                  >
+                    <FaUserCircle className="user-icon" />
+                    <span className="user-name">PROFILE</span>
+                    <FaChevronDown className={`arrow-icon ${showDropdown ? 'open' : ''}`} />
+                  </div>
+
+                  {showDropdown && (
+                    <div className="profile-dropdown-menu">
+                      <div className="dropdown-item" onClick={() => { navigate("/invoices"); setShowDropdown(false); }}>
+                        <FaFileInvoice /> <span>Invoices</span>
+                      </div>
+                      <div className="dropdown-item" onClick={() => { navigate("/change-password"); setShowDropdown(false); }}>
+                        <FaKey /> <span>Change Password</span>
+                      </div>
+                      <hr />
+                      <div className="dropdown-item logout-item" onClick={handleLogout}>
+                        <FaSignOutAlt /> <span>Logout</span>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
+
         </div>
       </div>
     </header>

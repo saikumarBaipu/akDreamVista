@@ -163,3 +163,49 @@
   .abt-hero-inner h1 { font-size: 2.2rem; }
   .abt-row { padding: 30px 0; }
 }
+
+/* Update these specific sections in your About.css */
+
+.abt-frame-standard {
+  width: 100%;
+  max-width: 480px; /* Slightly wider for better visual impact */
+  height: 300px;    /* Fixed height for perfect zig-zag symmetry */
+  overflow: hidden;
+  border-radius: 16px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+  border: 1px solid #e0e0e0;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.abt-frame-standard img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* This ensures the image fills the 300px height perfectly */
+  object-position: center;
+  transition: transform 0.8s ease;
+}
+
+/* Delete .abt-frame-founder from your CSS as we are now 
+   using the standard frame for consistency */
+
+/* Add a premium accent to the titles to match the client's highlight style */
+.abt-title-edge {
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin-bottom: 20px;
+  color: var(--abt-dark);
+  position: relative;
+}
+
+.abt-title-edge::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 5px;
+  background: var(--abt-orange);
+  margin-top: 10px;
+  border-radius: 10px;
+}

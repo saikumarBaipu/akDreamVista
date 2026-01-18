@@ -171,3 +171,81 @@
   .ap-modal-visuals { order: -1; } 
   .ap-info-grid { grid-template-columns: 1fr; }
 }
+/* Use shared styles from EditModal where possible, then add these specific ones */
+
+.ap-container.view-mode {
+  width: 100%;
+  max-width: 1100px;
+  background-color: #f4f7fe;
+  border-radius: 30px;
+  padding: 40px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+}
+
+.ap-details-view {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ap-info-group label {
+  display: block;
+  font-size: 12px;
+  color: #a3aed0;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+
+.ap-info-group h4 {
+  font-size: 1.4rem;
+  color: #0b1437;
+  margin: 0;
+}
+
+.ap-info-group p {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1b2559;
+  margin: 0;
+}
+
+.view-price {
+  color: #ff7800 !important;
+  font-size: 1.2rem !important;
+  font-weight: 800 !important;
+}
+
+.status-pill {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.status-pill.paid { background: #e2f9e1; color: #24d366; }
+.status-pill.unpaid { background: #fff1f0; color: #ff4d4f; }
+
+.contact-text {
+  background: #fff;
+  padding: 10px 15px;
+  border: 1px dashed #ff7800;
+  border-radius: 10px;
+  display: inline-block;
+}
+
+/* Ensure Media Box fits the View Modal */
+.ap-preview-media-box {
+  width: 100%;
+  height: 250px; /* Slightly taller for view mode */
+  position: relative;
+  background: #000;
+  border-radius: 15px 15px 0 0;
+  overflow: hidden;
+}
+
+.preview-video {
+  width: 100%;
+  height: 100%;
+  border: none;
+}

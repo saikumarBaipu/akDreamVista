@@ -4,8 +4,10 @@ import "./AddProperty.css";
 
 export default function AddProperty() {
   const navigate = useNavigate();
+  const token = localStorage.getItem("token");
 
   const [property, setProperty] = useState({
+    propertyCode: "",
     propertiesTitle: "",
     propertiesType: "",
     landArea: "",
@@ -18,67 +20,124 @@ export default function AddProperty() {
     youtubeLink: "",
   });
 
-  const [imageFile, setImageFile] = useState(null);
-  const [previewUrl, setPreviewUrl] = useState("");
+  const [imageFiles, setImageFiles] = useState([]);
+  const [previewUrls, setPreviewUrls] = useState([]);
+  const [activeTab, setActiveTab] = useState("image");
+  const [currentIndex, setCurrentIndex] = useState(0); // For Arrow Navigation
 
   const handleChange = (e) => {
     setProperty({ ...property, [e.target.name]: e.target.value });
-  };
-
-  // Helper for 1,000.00 formatting
-  const formatPrice = (val) => {
-    if (!val) return "0.00";
-    return new Intl.NumberFormat("en-IN", {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    }).format(val);
+    if (e.target.name === "youtubeLink" && e.target.value) {
+      setActiveTab("video");
+    }
   };
 
   const handleImageUpload = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    setImageFile(file);
-    setPreviewUrl(URL.createObjectURL(file));
+    const files = Array.from(e.target.files);
+    const maxSize = 5 * 1024 * 1024;
+
+    // Logic: Limit to 5 images total
+    if (imageFiles.length + files.length > 5) {
+      alert("❌ Maximum 5 images allowed.");
+      return;
+    }
+
+    const validFiles = [];
+    const newPreviews = [];
+
+    files.forEach((file) => {
+      if (file.size > maxSize) {
+        alert(`❌ ${file.name} is too large. Max 5MB allowed.`);
+      } else {
+        validFiles.push(file);
+        newPreviews.push(URL.createObjectURL(file));
+      }
+    });
+
+    if (validFiles.length > 0) {
+      setImageFiles((prev) => [...prev, ...validFiles]);
+      setPreviewUrls((prev) => [...prev, ...newPreviews]);
+      setActiveTab("image");
+    }
+    e.target.value = ""; 
   };
 
-  const resetForm = () => {
-    setProperty({
-      propertiesTitle: "",
-      propertiesType: "",
-      landArea: "",
-      facing: "",
-      floors: "",
-      price: "",
-      propertyStatus: "",
-      ownerContact: "",
-      fee: "",
-      youtubeLink: "",
-    });
-    setImageFile(null);
-    setPreviewUrl("");
+  // --- Arrow Navigation Logic ---
+  const nextImage = () => {
+    setCurrentIndex((prev) => (prev === previewUrls.length - 1 ? 0 : prev + 1));
+  };
+
+  const prevImage = () => {
+    setCurrentIndex((prev) => (prev === 0 ? previewUrls.length - 1 : prev - 1));
+  };
+
+  const removeImage = (index) => {
+    const confirmDelete = window.confirm("Are you sure you want to remove this image?");
+    if (confirmDelete) {
+      const updatedFiles = imageFiles.filter((_, i) => i !== index);
+      const updatedPreviews = previewUrls.filter((_, i) => i !== index);
+      setImageFiles(updatedFiles);
+      setPreviewUrls(updatedPreviews);
+      
+      // Prevent index out of bounds
+      if (currentIndex >= updatedPreviews.length) {
+        setCurrentIndex(Math.max(0, updatedPreviews.length - 1));
+      }
+    }
+  };
+
+  const formatPrice = (val) => {
+    if (!val || isNaN(val)) return "0.00";
+    const num = parseFloat(val);
+    if (num >= 10000000) return (num / 10000000).toFixed(2) + " Cr";
+    if (num >= 100000) return (num / 100000).toFixed(2) + " L";
+    return new Intl.NumberFormat("en-IN").format(num);
+  };
+
+  const getYoutubeEmbedUrl = (url) => {
+    if (!url) return null;
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+    const match = url.match(regExp);
+    return (match && match[2].length === 11) ? `https://www.youtube.com/embed/${match[2]}` : null;
   };
 
   const addProperty = async () => {
-    if (!imageFile) return alert("⚠ Please upload an image");
-    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("❌ Please login again.");
+      navigate("/admin-login");
+      return;
+    }
+
+    if (imageFiles.length === 0) {
+      alert("Please upload at least one image.");
+      return;
+    }
+
+    const confirmSubmit = window.confirm(`Submit this listing with ${imageFiles.length} images?`);
+    if (!confirmSubmit) return;
 
     const formData = new FormData();
-    formData.append("image", imageFile);
+    imageFiles.forEach((file) => {
+      formData.append("images", file); 
+    });
     formData.append("property", JSON.stringify(property));
 
     try {
-      const response = await fetch("http://23.20.0.192:8080/api/property/addProperty", {
+      const response = await fetch("http://localhost:8080/api/property/addProperty", {
         method: "POST",
-        headers: { Authorization: `Bearer ${token}` },
+        headers: { "Authorization": `Bearer ${token}` },
         body: formData,
       });
 
-      if (!response.ok) throw new Error("Unauthorized");
-
-      alert("✅ Property added successfully!");
-      navigate("/admin-dashboard");
+      if (response.ok) {
+        alert("Property added successfully!");
+        navigate("/admin-dashboard");
+      } else {
+        const errorMsg = await response.text();
+        alert("Failed to add property: " + errorMsg);
+      }
     } catch (err) {
-      alert("❌ Session expired. Please login again.");
+      alert("Server error.");
     }
   };
 
@@ -86,104 +145,108 @@ export default function AddProperty() {
     <div className="ap-page-wrapper">
       <div className="ap-container">
         <div className="ap-header">
-          <h2>Add <span>Property</span></h2>
+          <h1>Add <span>Property</span></h1>
           <p>Create a high-quality listing for the DreamVista inventory</p>
         </div>
 
         <div className="ap-content-grid glass-card">
-          {/* Form Section */}
           <form className="ap-form" onSubmit={(e) => e.preventDefault()}>
             <div className="ap-input-row">
+              <input name="propertyCode" placeholder="Property ID" value={property.propertyCode} onChange={handleChange} />
               <input name="propertiesTitle" placeholder="Property Title" value={property.propertiesTitle} onChange={handleChange} />
-              <select name="propertiesType" value={property.propertiesType} onChange={handleChange}>
-                <option value="">Property Type</option>
-                <option>Apartment</option>
-                <option>Independent House</option>
-                <option>Villa</option>
-                <option>Land</option>
-              </select>
             </div>
 
             <div className="ap-input-row">
-              <input name="landArea" placeholder="Land Area (Sq.Yards)" value={property.landArea} onChange={handleChange} />
-              <select name="facing" value={property.facing} onChange={handleChange}>
-                <option value="">Facing</option>
-
-  <option>East</option>
-              <option>West</option>
-              <option>North</option>
-              <option>South</option>
-               <option>North-East</option>
-  <option>North-West</option>
-  <option>South-East</option>
-  <option>South-West</option>
-
-
-                
-              </select>
+              <input name="propertiesType" placeholder="Property Type" value={property.propertiesType} onChange={handleChange} />
+              <input name="landArea" placeholder="Land Area (Sq.Y)" value={property.landArea} onChange={handleChange} />
             </div>
 
             <div className="ap-input-row">
+              <input name="facing" placeholder="Facing" value={property.facing} onChange={handleChange} />
               <input name="floors" placeholder="Number of Floors" value={property.floors} onChange={handleChange} />
+            </div>
+
+            <div className="ap-input-row">
               <input name="price" type="number" placeholder="Price (₹)" value={property.price} onChange={handleChange} />
+              <input name="propertyStatus" placeholder="Property Status" value={property.propertyStatus} onChange={handleChange} />
             </div>
 
             <div className="ap-input-row">
-              <select name="propertyStatus" value={property.propertyStatus} onChange={handleChange}>
-                <option value="">Property Status</option>
-                <option>New</option>
-                <option>Resale</option>
-                <option>Ready to Move</option>
-                <option>Under Construction</option>
-              </select>
-              <input name="ownerContact" placeholder="Owner Contact" maxLength={10} value={property.ownerContact} onChange={(e) => /^\d*$/.test(e.target.value) && handleChange(e)} />
-            </div>
-
-            <div className="ap-input-row">
+              <input name="ownerContact" placeholder="Owner Contact" maxLength={10} value={property.ownerContact} onChange={handleChange} />
               <input name="fee" type="number" placeholder="Consulting Fee" value={property.fee} onChange={handleChange} />
-              <input name="youtubeLink" placeholder="YouTube Link (Optional)" value={property.youtubeLink} onChange={handleChange} />
             </div>
 
-            <label className="ap-upload-box">
-              <i className="fa-solid fa-cloud-arrow-up"></i>
-              <span>{imageFile ? imageFile.name : "Select Property Image"}</span>
-              <input type="file" hidden accept="image/*" onChange={handleImageUpload} />
-            </label>
+            <div className="ap-media-upload-row">
+              <div className="youtube-input-wrapper">
+                <i className="fa-brands fa-youtube"></i>
+                <input name="youtubeLink" placeholder="YouTube Link" value={property.youtubeLink} onChange={handleChange} />
+              </div>
+              <label className="ap-compact-upload">
+                <i className="fa-solid fa-camera"></i>
+                {/* Visual Fix: Show X/5 remaining */}
+                <span>{imageFiles.length > 0 ? `${imageFiles.length}/5 Selected` : "Upload (Max 5)"}</span>
+                <input type="file" hidden multiple accept="image/*" onChange={handleImageUpload} />
+              </label>
+            </div>
 
             <div className="ap-actions">
-              <button className="ap-btn-submit" onClick={addProperty}>Submit </button>
-              <button className="ap-btn-reset" onClick={resetForm}>Reset</button>
+              <button className="ap-btn-submit" onClick={addProperty}>Submit Listing</button>
             </div>
           </form>
 
-          {/* Preview Section */}
           <aside className="ap-preview-section">
-            <h4 className="preview-label">Card Preview</h4>
+            <h4 className="preview-label">Live Card Preview</h4>
             <div className="ap-preview-card">
-             <div className="ap-preview-img-box">
-  {previewUrl ? (
-    <img 
-      src={previewUrl} 
-      alt="Property" 
-      onError={(e) => {
-        // If image fails to load, show a nice placeholder
-        e.target.onerror = null; 
-        e.target.src = "https://placehold.co/600x400/1a1a1a/ff7800?text=DreamVista+Property";
-      }}
-    />
-  ) : (
-    <div className="no-img-placeholder">
-      <i className="fa-solid fa-image"></i>
-    </div>
-  )}
-</div>
+              <div className="ap-preview-media-box">
+                {activeTab === "video" && property.youtubeLink ? (
+                  <iframe className="preview-video" src={getYoutubeEmbedUrl(property.youtubeLink)} title="Video"></iframe>
+                ) : (
+                  <div className="gallery-container">
+                    {previewUrls.length > 0 ? (
+                      <>
+                        {/* Counter Overlay */}
+                        <div className="image-counter">{currentIndex + 1} / {previewUrls.length}</div>
+                        
+                        <img src={previewUrls[currentIndex]} alt="preview" className="gallery-img-active" />
+                        
+                        {/* Navigation Arrows */}
+                        {previewUrls.length > 1 && (
+                          <>
+                            <button className="nav-btn prev" onClick={prevImage}><i className="fa-solid fa-chevron-left"></i></button>
+                            <button className="nav-btn next" onClick={nextImage}><i className="fa-solid fa-chevron-right"></i></button>
+                          </>
+                        )}
+
+                        <button className="remove-img-btn" onClick={() => removeImage(currentIndex)}>
+                          <i className="fa-solid fa-trash-can"></i>
+                        </button>
+                      </>
+                    ) : (
+                      <img src="https://placehold.co/600x400?text=No+Images" alt="Placeholder" />
+                    )}
+                  </div>
+                )}
+
+                {(property.youtubeLink || previewUrls.length > 0) && (
+                  <div className="media-switcher">
+                    <button className={activeTab === "image" ? "active" : ""} onClick={() => setActiveTab("image")}>
+                      <i className="fa-solid fa-image"></i>
+                    </button>
+                    <button className={activeTab === "video" ? "active" : ""} onClick={() => setActiveTab("video")}>
+                      <i className="fa-brands fa-youtube"></i>
+                    </button>
+                  </div>
+                )}
+              </div>
+
               <div className="ap-preview-details">
-                <span className="p-type">{property.propertiesType || "Type"}</span>
-                <h5>{property.propertiesTitle || "Main Property Title"}</h5>
+                <span className="p-type">{property.propertiesType || "TYPE"}</span>
+                <h5>{property.propertiesTitle || "Property Title"}</h5>
                 <p className="p-price">₹ {formatPrice(property.price)}</p>
                 <div className="p-stats">
-                  <span><i className="fa-solid fa-compass"></i> {property.facing || "N/A"}</span>
-                  <span><i className="fa-solid fa-ruler-combined"></i> {property.landArea || "0"} Sq.Y</span>
+                  <div className="stat-item"><i className="fa-solid fa-compass"></i><span>{property.facing || "N/A"}</span></div>
+                  <span className="stat-divider">|</span>
+                  <div className="stat-item"><i className="fa-solid fa-ruler-combined"></i><span>{property.landArea || "0"} Sq.Y</span></div>
                 </div>
               </div>
             </div>

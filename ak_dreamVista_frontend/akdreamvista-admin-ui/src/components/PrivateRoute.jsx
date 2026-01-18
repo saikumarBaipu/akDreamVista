@@ -1,19 +1,18 @@
 import { Navigate } from "react-router-dom";
 
-export default function PrivateRoute({ children, role }) {
-  const userRole = localStorage.getItem("role");
+const PrivateRoute = ({ children, role }) => {
   const token = localStorage.getItem("token");
+  const userRole = localStorage.getItem("role"); // This is "USER,ADMIN"
 
-  // ✅ ADMIN ACCESS (MASTER LOGIN)
-  if (role === "ADMIN" && userRole === "ADMIN") {
-    return children;
+  if (!token) {
+    return <Navigate to="/admin-login" />;
   }
 
-  // ✅ USER ACCESS
-  if (token && userRole === role) {
-    return children;
+  if (role && (!userRole || !userRole.includes(role))) {
+    return <Navigate to="/admin-login" />; 
   }
 
-  // ❌ UNAUTHORIZED
-  return <Navigate to="/login" replace />;
-}
+  return children;
+};
+
+export default PrivateRoute;

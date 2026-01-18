@@ -1,190 +1,144 @@
-.details-wrapper {
-    background-color: #ffc594; 
-    min-height: 100vh;
-    padding: 40px 20px;
-    display: flex;
-    justify-content: center;
+/* --- 1. ROOT & RESET --- */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
+.details-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Better for long scrolling content */
+    min-height: 100vh;
+    padding: 40px 20px;
+    background-color: #f0f4f8;
+    background-image: 
+        radial-gradient(at 0% 0%, hsla(20,100%,90%,1) 0, transparent 50%), 
+        radial-gradient(at 100% 100%, hsla(210,100%,90%,1) 0, transparent 50%);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* --- 2. CONTAINER & HEADER --- */
 .details-container {
+    position: relative; 
     width: 100%;
-    max-width: 1100px;
-    background: #f8faff;
-    border-radius: 30px;
+    max-width: 1200px;
+    background: #ffffff;
     padding: 40px;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+    border-radius: 30px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+    margin: 20px; 
+    padding-top: 10px;
+}
+
+.details-header {
+    margin-bottom: 30px;
 }
 
 .details-header h1 {
     font-size: 2.2rem;
     color: #1b2559;
-    margin-bottom: 5px;
+    font-weight: 800;
 }
 
-.details-header h1 span { color: #ff6b1e; }
-.details-header p { color: #a3aed0; margin-bottom: 30px; }
+.details-header h1 span {
+    color: #ff6b1e;
+}
 
+.details-header p {
+    color: #a3aed0;
+    font-size: 1rem;
+}
+
+/* --- 3. TOP RIGHT CLOSE BUTTON --- */
+.back-home-btn {
+   position: absolute;
+    top: 25px;      /* Distance from top edge */
+    right: 25px;    /* Distance from right edge */
+    
+    /* Colors and Branding */
+    background: #ff7800;
+    color: #ffffff;
+    border: none;
+    
+    /* Size and Spacing */
+    padding: 10px 20px;
+    width: auto;           /* Prevents it from stretching */
+    min-width: 130px;      /* Ensures a nice consistent size */
+    height: 45px;
+    border-radius: 12px;
+    
+    /* Centering Content */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    
+    /* Typography & Effects */
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    z-index: 100;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(255, 120, 0, 0.3);
+}
+
+.back-home-btn:hover {
+    background: #e66c00;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(255, 120, 0, 0.4);
+}
+
+.back-home-btn i {
+    font-size: 1.1rem;
+}
+
+/* --- 4. MAIN LAYOUT GRID --- */
 .details-main-card {
     display: grid;
-    grid-template-columns: 1.5fr 1fr;
-    gap: 40px;
-    border: 1.5px solid #ff6b1e;
+    grid-template-columns: 1.2fr 1fr; /* Default Laptop View */
+    gap: 30px;
+    border: 1px solid #e0e5f2;
     padding: 30px;
-    border-radius: 20px;
+    border-radius: 24px;
+    background: #ffffff;
 }
 
-/* Info Section (Left) */
+/* --- 5. LEFT SECTION: PROPERTY INFO --- */
 .detail-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 20px;
 }
 
 .info-box label {
     display: block;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     font-weight: 700;
     color: #1b2559;
-    margin-bottom: 5px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
 }
 
 .info-box p {
-    background: white;
-    padding: 12px;
-    border-radius: 10px;
-    border: 1px solid #e0e5f2;
-    color: #444;
-    font-weight: 500;
-}
-
-.description-box { margin-top: 20px; }
-.description-box p {
-    background: white; padding: 15px; border-radius: 10px;
-    border: 1px solid #e0e5f2; min-height: 80px;
-}
-
-.back-btn {
-    margin-top: 25px;
-    background: #ff6b1e;
-    color: white;
-    border: none;
-    padding: 12px 30px;
-    border-radius: 10px;
-    font-weight: 700;
-    cursor: pointer;
-}
-
-/* Preview Section (Right) */
-.preview-section {
-    border-left: 1px solid #e0e5f2;
-    padding-left: 40px;
-}
-
-.preview-title {
-    font-size: 0.8rem;
-    color: #1b2559;
-    letter-spacing: 1px;
-    margin-bottom: 20px;
-}
-
-.preview-card-display {
-    background: white;
-    border-radius: 20px;
-    overflow: hidden;
-    border: 1px solid #ff6b1e;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-}
-
-.preview-img-wrap { position: relative; height: 200px; }
-.preview-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
-.preview-status {
-    position: absolute; top: 15px; left: 15px;
-    background: #ff6b1e; color: white; padding: 5px 15px;
-    border-radius: 20px; font-size: 0.7rem; font-weight: 800;
-}
-
-.preview-content { padding: 20px; }
-.preview-type { color: #ff6b1e; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; }
-.preview-name { color: #1b2559; font-size: 1.3rem; margin: 5px 0; }
-.preview-price { color: #ff6b1e; font-size: 1.5rem; font-weight: 900; }
-
-.preview-footer {
-    display: flex; gap: 20px; margin-top: 15px;
-    color: #a3aed0; font-size: 0.85rem; font-weight: 600;
-}
-.back-home-btn {
-    display: block; 
-    margin: 30px auto 0; 
-    padding: 12px 30px;
-    background-color: #f8f9fa;
-    border: 2px solid #cecece;
-    border-radius: 30px; /* Rounded look */
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.back-home-btn:hover {
-    background-color: #ff7800; 
-    color: white;
-    border-color: #ff7800;
-    box-shadow: 0 5px 15px rgba(255, 120, 0, 0.3);
-}
-.details-wrapper {
-    display: flex;
-    justify-content: center; 
-    align-items: center;     
-    min-height: 100vh;      
-    background-color: #f0f2f5;
-    padding: 20px;
-}
-
-.details-container {
-    width: 100%;
-    max-width: 1200px; 
-    background: #fff;
-    padding: 40px;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-}
-/* Responsive */
-@media (max-width: 900px) {
-    .details-main-card { grid-template-columns: 1fr; }
-    .preview-section { border-left: none; padding-left: 0; border-top: 1px solid #eee; padding-top: 30px; }
-}
-
-.preview-img-container.large-container {
-    width: 100%;
-    height: 400px; 
-    overflow: hidden;
+    background: #f8faff;
+    padding: 14px;
     border-radius: 12px;
+    border: 1px solid #e0e5f2;
+    color: #2b3674;
+    font-weight: 600;
+    margin: 0;
 }
 
-.preview-img-container.large-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
+/* Blurred & Unlocked logic */
+.blurred-text { filter: blur(6px); user-select: none; opacity: 0.6; }
+.unlocked-text { color: #05cd99 !important; }
 
-
-.blurred-text {
-    filter: blur(5px);
-    user-select: none;
-    color: #666;
-    font-weight: bold;
-}
-
-.unlocked-text {
-    color: #2e7d32; 
-    font-weight: bold;
-}
-
-.preview-section.large-view {
-    flex: 1.2; 
-}
-
+/* Payment Box */
 .unlock-action {
-    margin-top: 30px;
+    margin-top: 25px;
     padding: 20px;
     background: #fff5f0;
     border: 2px dashed #ff6b1e;
@@ -192,36 +146,147 @@
     text-align: center;
 }
 
-.lock-msg {
-    color: #1b2559;
-    font-weight: 600;
-    margin-bottom: 15px;
-}
-
 .pay-now-btn {
     background: #ff6b1e;
     color: white;
     border: none;
-    padding: 12px 25px;
+    padding: 14px 28px;
     border-radius: 10px;
-    font-size: 1rem;
     font-weight: 800;
     cursor: pointer;
     transition: 0.3s;
-    box-shadow: 0 5px 15px rgba(255, 107, 30, 0.3);
+    width: 100%;
 }
 
-.pay-now-btn:hover {
-    background: #e55a10;
-    transform: scale(1.05);
+/* --- 6. RIGHT SECTION: MEDIA GALLERY --- */
+.preview-section {
+    display: flex;
+    flex-direction: column;
 }
 
-.close-win-btn {
-    margin-top: 20px;
-    background: #eee;
-    color: #555;
+.main-viewer {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    background: #111;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.viewer-img, .viewer-frame {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Image Counter */
+.image-counter {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: rgba(0,0,0,0.5);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    backdrop-filter: blur(4px);
+    z-index: 5;
+}
+
+/* Media Selector Icons (White/Orange Logic) */
+.media-type-selectors {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    gap: 12px;
+    z-index: 10;
+}
+
+.media-type-selectors button {
+   background: #ffffff; 
+    color: #1b2559;      /* Dark blue icon by default */
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
     border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.media-type-selectors button.active {
+   background: #ff7800 !important; /* Brand Orange */
+    color: #ffffff !important;
+}
+
+/* Navigation Arrows */
+.main-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 5;
+    transition: 0.3s;
+    color: #1b2559;
+}
+
+.main-nav-btn:hover { background: #ff6b1e; color: white; }
+.main-nav-btn.prev { left: 15px; }
+.main-nav-btn.next { right: 15px; }
+
+/* --- 7. RESPONSIVE DESIGN --- */
+
+/* Laptops & Tablets (Max 1024px) */
+@media (max-width: 1024px) {
+    .details-main-card {
+        grid-template-columns: 1fr; /* Stack layout */
+    }
+    
+    .preview-section {
+        order: -1; /* Image appears first on top */
+        margin-bottom: 20px;
+    }
+
+    .main-viewer {
+        height: 450px;
+    }
+}
+
+/* Mobile Devices (Max 480px) */
+@media (max-width: 480px) {
+    .details-wrapper { padding: 10px; }
+    
+    .details-container { 
+        padding: 20px; 
+        padding-top: 70px; /* Space for absolute close button */
+        padding-top: 10px;
+    }
+
+    .back-home-btn {
+        top: 15px;
+        right: 15px;
+        left: 15px; /* Full width on tiny screens */
+        width: calc(100% - 30px);
+    }
+
+    .detail-grid {
+        grid-template-columns: 1fr; /* One column only */
+    }
+
+    .main-viewer {
+        height: 280px;
+    }
+
+    .details-header h1 {
+        font-size: 1.6rem;
+    }
 }

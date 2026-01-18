@@ -13,10 +13,11 @@
    ========================= */
 .table-wrapper {
   background: #ffffff;
-  padding: 20px;
-  margin-top: 25px;
+  padding: 16px;
+  margin-top: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+  width: 100%;
 }
 
 /* =========================
@@ -26,49 +27,24 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 18px;
+  padding-bottom: 12px;
   margin-bottom: 12px;
   border-bottom: 1px solid #eee;
 }
 
 .table-header h3 {
-  margin: 0;
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 600;
   color: #222;
 }
 
-.close-btn {
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  border: 1px solid #ff7800;
-  background: transparent;
-  color: #ff7800;
-  font-size: 18px;
-  font-weight: 600;
-  cursor: pointer;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  transition: all 0.2s ease;
-}
-
-.close-btn:hover {
-  background: #ff7800;
-  color: #ffffff;
-  transform: rotate(90deg);
-}
-
 /* =========================
-   SCROLL WRAPPER (IMPORTANT)
+   SCROLL WRAPPER
    ========================= */
 .table-scroll-wrapper {
   max-height: 420px;
-  overflow: auto;                 /* ✅ both axes */
-  position: relative;             /* ✅ required for sticky */
+  overflow: auto;
+  position: relative;
   border: 1px solid #ddd;
   border-radius: 6px;
 }
@@ -78,27 +54,27 @@
    ========================= */
 .users-table {
   width: 100%;
-  min-width: 900px;               /* ✅ horizontal scroll */
+  min-width: 800px; /* horizontal scroll for small screens */
   border-collapse: collapse;
   font-size: 14px;
 }
 
 .users-table th,
 .users-table td {
-  padding: 12px 14px;
+  padding: 10px 12px;
   text-align: left;
   white-space: nowrap;
   border-bottom: 1px solid #eee;
-  background: #ffffff;
+  background: #fff;
 }
 
 /* =========================
-   STICKY HEADER (WORKING)
+   STICKY HEADER
    ========================= */
 .users-table thead th {
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 5;
   background: #ffffff;
   box-shadow: 0 2px 3px rgba(0,0,0,0.06);
 }
@@ -118,7 +94,6 @@
   border-radius: 6px;
   font-size: 12px;
   font-weight: 700;
-  text-transform: uppercase;
 }
 
 .role-badge.ADMIN {
@@ -132,24 +107,68 @@
 }
 
 /* =========================
+   STATUS BADGES
+   ========================= */
+.status-badge {
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.status-badge.active {
+  background: #e6fffa;
+  color: #065f46;
+}
+
+.status-badge.inactive {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* =========================
+   ACTION BUTTONS
+   ========================= */
+.status-btn {
+  padding: 6px 10px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.status-btn.activate {
+  background: #16a34a;
+  color: #fff;
+}
+
+.status-btn.deactivate {
+  background: #dc2626;
+  color: #fff;
+}
+
+/* =========================
    EMPTY / LOADING
    ========================= */
 .users-empty {
   text-align: center;
-  padding: 25px;
+  padding: 20px;
   font-style: italic;
-  color: #777777;
+  color: #777;
 }
 
 /* =========================
-   PAGINATION (OUTSIDE SCROLL)
+   PAGINATION
    ========================= */
 .pagination {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   margin-top: 15px;
+  flex-wrap: wrap;
 }
 
 .pagination button {
@@ -166,23 +185,52 @@
 }
 
 /* =========================
-   RESPONSIVE
+   RESPONSIVE BREAKPOINTS
    ========================= */
 
+/* Tablets */
+@media (max-width: 1024px) {
+  .users-table {
+    min-width: 720px;
+  }
+}
 
+/* Mobile */
 @media (max-width: 768px) {
-  .table-header {
-    flex-direction: row;          /* ❌ no stacking */
-    align-items: center;
+  .table-wrapper {
+    padding: 12px;
   }
 
-  .close-btn {
-    width: 30px;
-    height: 30px;
-    font-size: 16px;
+  .table-header h3 {
+    font-size: 18px;
+  }
+
+  .users-table {
+    font-size: 13px;
+    min-width: 650px;
+  }
+
+  .status-btn {
+    padding: 5px 8px;
+    font-size: 11px;
   }
 }
-
-.table-wrapper {
-  min-height: 0;
+.ap-heading {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
+
+.heading-black {
+  color: #000;
+}
+
+.heading-orange {
+  color: #ff6b1e;
+}
+@media (max-width: 480px) { .ap-heading { font-size: 18px; } }
+@media (min-width: 481px) and (max-width: 768px) { .ap-heading { font-size: 22px; } }
+@media (min-width: 769px) { .ap-heading { font-size: 26px; } }
+

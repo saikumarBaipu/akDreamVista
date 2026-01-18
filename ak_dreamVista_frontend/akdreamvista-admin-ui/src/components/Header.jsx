@@ -92,65 +92,34 @@ export default function Header() {
   return (
     <header className="header-container">
       <div className="top-black-bar">
-        <div className="top-black-inner">
-          <div className="top-left">AK DreamVista</div>
-
-          {isLoggedIn && (
-            <div className="top-center">
-              <div className="ak-session-badge">
-                <FaRegClock />
-                <span>Expires in: </span>
-                <span className="timer-countdown">{timeLeft || "Calculating..."}</span>
-              </div>
-            </div>
-          )}
-
-          {/* <div className="top-right">
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
-              <FaFacebookF />
-            </a>
-          </div> */}
-        </div>
+       
       </div>
 
       <div className="nav-section">
         <div className="nav-container">
           <div className="nav-left">
-            <img src={logo} alt="logo" className="nav-logo" onClick={() => navigate("/")} style={{ cursor: "pointer" }} />
-
-            {role !== "ADMIN" ? (
-              <ul className="nav-links">
-                <li><NavLink to="/" end>HOME</NavLink></li>
-                <li><span className="nav-link-btn" onClick={handleBuyClick}>BUY A PROPERTY</span></li>
-                <li><NavLink to="/sell">SELL A PROPERTY</NavLink></li>
-                <li><NavLink to="/construct">CONSTRUCT</NavLink></li>
-                <li><NavLink to="/elevators">ELEVATORS</NavLink></li>
-                <li><NavLink to="/about">ABOUT US</NavLink></li>
-                <li><NavLink to="/help">HELP</NavLink></li>
-                {!isLoggedIn && <li><NavLink to="/login" className="login-link">USER LOGIN</NavLink></li>}
-              </ul>
-            ) : (
+<div className="logo-section" onClick={() => navigate("/")}>
+            <img src={logo} alt="AK DreamVista" className="premium-logo" />
+          </div>
+            
               <ul className="nav-links admin-nav-links">
                 <li><NavLink to="/admin-dashboard" end>Dashboard</NavLink></li>
                 <li><NavLink to="/add-property">Add Property</NavLink></li>
                 <li><NavLink to="/admin-dashboard" state={{ usersOnly: true }} className={({ isActive }) => (isActive && location.state?.usersOnly ? "active" : "")}>Customers</NavLink></li>
                 <li><NavLink to="/admin-dashboard" state={{ openTable: "ALL_PROPERTIES" }} className={({ isActive }) => (isActive && location.state?.openTable === "ALL_PROPERTIES" ? "active" : "")}>Properties</NavLink></li>
                 <li><NavLink to="/admin-dashboard" state={{ openTable: "INVOICES" }} className={({ isActive }) => (isActive && location.state?.openTable === "INVOICES" ? "active" : "")}>Invoices</NavLink></li>
+              <li><NavLink to="/admin-messages">Messages</NavLink></li>
               </ul>
-            )}
+            
           </div>
 
           <div className="nav-right">
-            {role !== "ADMIN" && (
-              <div className="phone-inline">
-                <FaPhone /> +91 83280 41624
-              </div>
-            )}
-            {isLoggedIn && (
-              <span className="logout-link" onClick={handleLogout} style={{ cursor: "pointer" }}>
-                LOGOUT
-              </span>
-            )}
+            
+           {isLoggedIn && (
+  <span className="logout-link premium-nav-btn" onClick={handleLogout}>
+    LOGOUT
+  </span>
+)}
           </div>
         </div>
       </div>

@@ -12,6 +12,7 @@
   width: 100%;
   border-top: 4px solid var(--ft-orange); /* Matches the page accent */
   font-family: 'Plus Jakarta Sans', sans-serif;
+  padding-top: 0px;
 }
 
 .ft-container {

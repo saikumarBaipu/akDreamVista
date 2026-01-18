@@ -1,0 +1,329 @@
+.ak-admin-messages-page {
+    padding: 40px 20px;
+    background-color: #f4f7f6;
+    min-height: 90vh;
+}
+
+.ak-admin-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.ak-admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    background: white;
+    padding: 20px 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.ak-admin-header h2 span {
+    color: #ff7800; 
+}
+
+.ak-search-box {
+    display: flex;
+    align-items: center;
+    background: #f4f7f6;
+    padding: 10px 20px;
+    border-radius: 25px;
+    width: 350px;
+}
+
+.ak-search-box input {
+    border: none;
+    background: transparent;
+    margin-left: 10px;
+    width: 100%;
+    outline: none;
+}
+
+/* Grid Layout */
+.ak-messages-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 25px;
+}
+.ak-message-card {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.03);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid #ff7800; 
+    border-left: 5px solid #ff7800; 
+}
+
+.ak-message-card:hover {
+    transform: translateY(-5px);
+   
+    box-shadow: 0 15px 35px rgba(255, 120, 0, 0.15);
+    background-color: #fffaf5; 
+}
+
+
+
+
+.ak-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.ak-date {
+    font-size: 0.85rem;
+    color: #555;
+    font-weight: 600;
+    background: #fff0e6; 
+    padding: 4px 10px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid #ff780033; 
+}
+
+.ak-date svg {
+    color: #ff7800; 
+}
+
+.ak-del-btn {
+    background: #ffeded;
+    color: #ff4d4d;
+    border: none;
+    padding: 8px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.ak-del-btn:hover {
+    background: #ff4d4d;
+    color: white;
+}
+
+.ak-subject {
+    font-size: 1.1rem;
+    color: #222;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.ak-message-content {
+    color: #555;
+    line-height: 1.6;
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+    
+    height: 120px;          
+    overflow-y: auto;       
+    padding-right: 8px;    
+    word-wrap: break-word;  
+    
+    display: block; 
+    -webkit-line-clamp: unset;
+    -webkit-box-orient: unset;
+}
+
+.ak-message-content::-webkit-scrollbar {
+    width: 5px;
+}
+
+.ak-message-content::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.ak-message-content::-webkit-scrollbar-thumb {
+    background: #ff7800; /* Matching your orange border */
+    border-radius: 10px;
+}
+
+.ak-message-content::-webkit-scrollbar-thumb:hover {
+    background: #e66c00;
+}
+
+.ak-card-footer {
+    border-top: 1px solid #f0f0f0;
+    padding-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.ak-user-info p {
+    margin: 2px 0;
+    font-size: 0.85rem;
+    color: #444;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.ak-reply-link {
+    background: #222;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: 0.3s;
+}
+
+.ak-reply-link:hover {
+    background: #ff7800; 
+    color: white;
+}
+
+.ak-loading, .ak-no-results {
+    text-align: center;
+    padding: 50px;
+    color: #666;
+    font-size: 1.2rem;
+}
+
+
+.ak-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+    gap: 10px;
+}
+
+.pagi-btn, .pagi-number {
+    border: 1px solid #ddd;
+    background: white;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: 600;
+    color: #444;
+}
+
+.pagi-number.active {
+    background: #ff7800; 
+    color: white;
+    border-color: #ff7800;
+}
+
+.pagi-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.pagi-btn:hover:not(:disabled), .pagi-number:hover:not(.active) {
+    background: #fff0e6;
+    border-color: #ff7800;
+    color: #ff7800;
+}
+/* ============================================================
+   RESPONSIVE DESIGN (Tablets, Laptops, Windows)
+   ============================================================ */
+
+/* 💻 Large Screens & Desktops (1200px and up) */
+@media (min-width: 1200px) {
+    .ak-messages-grid {
+        grid-template-columns: repeat(3, 1fr); /* Exactly 3 cards per row */
+    }
+}
+
+/* 💻 Standard Laptops & Tablets Landscape (769px to 1199px) */
+@media (max-width: 1199px) {
+    .ak-messages-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 cards per row */
+    }
+    .ak-admin-container {
+        max-width: 95%;
+    }
+}
+
+/* 📱 Tablets Portrait (481px to 768px) */
+@media (max-width: 768px) {
+    .ak-admin-header {
+        flex-direction: column; /* Stack Title and Search bar */
+        gap: 20px;
+        text-align: center;
+    }
+
+    .ak-search-box {
+        width: 100%; /* Search bar takes full width on smaller screens */
+    }
+
+    .ak-messages-grid {
+        grid-template-columns: repeat(2, 1fr); 
+    }
+}
+
+@media (max-width: 480px) {
+    .ak-admin-messages-page {
+        padding: 20px 10px;
+    }
+
+    .ak-messages-grid {
+        grid-template-columns: 1fr; 
+    }
+
+    .ak-admin-header h2 {
+        font-size: 1.4rem;
+    }
+
+    .ak-message-card {
+        padding: 15px; 
+    }
+
+    .ak-card-footer {
+        flex-direction: column; 
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .ak-reply-link {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .ak-pagination {
+        gap: 5px; 
+    }
+
+    .pagi-btn, .pagi-number {
+        padding: 6px 10px;
+        font-size: 0.8rem;
+    }
+}
+
+.ak-admin-header .header-text h1 {
+    font-size: 32px;
+    color: #0b1437;
+    font-weight: 800;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.ak-admin-header .header-text h1 span {
+    color: #ff7800; 
+}
+
+.ak-admin-header .header-text p {
+    color: #666;
+    margin-top: 5px;
+    font-size: 0.95rem;
+}
+
+@media (max-width: 480px) {
+    .ak-admin-header .header-text h1 {
+        font-size: 26px; 
+    }
+}

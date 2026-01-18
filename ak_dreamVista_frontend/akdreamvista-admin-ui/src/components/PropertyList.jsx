@@ -7,7 +7,7 @@ export default function PropertyList() {
 
   // 1. Fetch Data
   useEffect(() => {
-    fetch("http://23.20.0.192:8080/api/properties/all")
+    fetch("http://localhost:8080/api/properties/all")
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         return res.json();

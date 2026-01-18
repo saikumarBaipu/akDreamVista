@@ -67,7 +67,7 @@ export default function AddProperty() {
     formData.append("property", JSON.stringify(property));
 
     try {
-      const response = await fetch("http://23.20.0.192:8080/api/property/addProperty", {
+      const response = await fetch("http://localhost:8080/api/property/addProperty", {
         method: "POST",
         headers: { Authorization: `Bearer ${token}` },
         body: formData,

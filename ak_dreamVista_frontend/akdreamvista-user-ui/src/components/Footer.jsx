@@ -41,11 +41,7 @@ export default function Footer() {
                 We make property buying and selling simple, transparent and direct
                 — no middlemen, no hidden charges. Trusted since 2016.
               </p>
-              {/* <div className="ft-admin-link">
-                <NavLink to="#" onClick={handleAdminLinkClick}>
-                  <i className="fa fa-lock"></i> Admin Login
-                </NavLink>
-              </div> */}
+             
             </div>
 
             {/* Column 2: Contact Info */}
@@ -63,7 +59,7 @@ export default function Footer() {
               <h4 className="ft-title">Quick Links</h4>
               <ul className="ft-nav-menu">
                 <li><NavLink to="/about">About Us</NavLink></li>
-                <li><NavLink to="/help">Contact</NavLink></li>
+                <li><NavLink to="/Contact">Contact</NavLink></li>
               </ul>
             </div>
           </div>

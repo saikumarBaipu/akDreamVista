@@ -23,7 +23,7 @@ export default function ForgotPassword() {
 
     try {
       const res = await fetch(
-        "http://23.20.0.192:8080/api/admin/forgot-password",
+        "http://localhost:8080/api/admin/forgot-password",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

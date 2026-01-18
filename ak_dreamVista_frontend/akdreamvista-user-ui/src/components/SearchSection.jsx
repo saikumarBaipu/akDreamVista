@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./SearchSection.css"; // CSS check 
 
 export default function SearchSection() {
   const navigate = useNavigate();
+  
+ 
+  const [size, setSize] = useState(1000);
+  const [landArea, setLandArea] = useState(1000);
 
   const handleSearch = () => {
+    
     navigate("/buy");
   };
 
@@ -14,65 +20,34 @@ export default function SearchSection() {
         <div className="search-title-block">
           <p className="hd-subtitle">DISCOVER YOUR</p>
           <h2 className="hd-title">
-            <span className="accent">DREAM </span>
-            <span className="accent">HOUSE</span>
+         
+            <span style={{ color: "#fb6a19" }}>DREAM HOUSE</span>
           </h2>
         </div>
 
         <form className="search-form-grid">
+          {/* 1. Property ID */}
           <div>
-            <label>Property Status</label>
-            <select defaultValue="">
-              <option value="">All Status</option>
-             
-                <option>New</option>
-                <option>Resale</option>
-                <option>Ready to Move</option>
-                <option>Under Construction</option>
-            </select>
-          </div>
-
-          <div>
-            <label>Property Type</label>
-            <select defaultValue="">
-              <option value="">All Types</option>
-              <option value="apartment">Apartment</option>
-              <option value="house">House</option>
-              <option value="villa">Villa</option>
-             
-                <option>Independent House</option>
-                
-                <option>Land</option>
-            </select>
-          </div>
-
-          <div>
-            <label>Title</label>
-            <input type="text" placeholder="Property title" />
-          </div>
-
-          {/* <div>
-            <label>Bedrooms</label>
-            <select defaultValue="">
-              <option value="">Any</option>
-              <option value="1">1 BHK</option>
-              <option value="2">2 BHK</option>
-              <option value="3">3 BHK</option>
-              <option value="4">4+ BHK</option>
-            </select>
-          </div> */}
-
-          <div>
-            <label>Size (SqFt)</label>
-            <input type="range" min="0" max="1000" defaultValue="1000" />
-          </div>
-
-          <div>
-            <label>Land Area (SqFt)</label>
-            <input type="range" min="0" max="1000" defaultValue="1000" />
+            <label>Property ID</label>
+            <input type="text" placeholder="Ex: AK101" />
           </div>
 
          
+
+          {/* 3. Property Status */}
+          <div>
+            <label>Property Status</label>
+             <input type="text" placeholder="Property Status" />
+           
+          </div>
+
+          {/* 4. Property Type */}
+          <div>
+            <label>Property Type</label>
+             <input type="text" placeholder="Property Type" />
+          </div>
+
+        
 
           <div className="search-submit">
             <button

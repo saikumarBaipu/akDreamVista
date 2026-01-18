@@ -2,10 +2,12 @@ import React, { useEffect } from "react";
 import "./Elevators.css";
 
 // Using your local imports
-import hospitalElevator from "../assets/images/Hospital-Elevators.webp";
-import homeLift from "../assets/images/Home-Lifts.webp";
-import passengerElevator from "../assets/images/Passenger-Elevators.webp";
-
+import elevators_1 from "../assets/images/elevators_1.png";
+import elevators_2 from "../assets/images/elevators_2.png";
+import elevators_3 from "../assets/images/elevators_3.png";
+import elevators_4 from "../assets/images/elevators_4.png";
+import elevators_5 from "../assets/images/elevators_5.png";
+import elevators_6 from "../assets/images/elevators_6.png";
 const ElevatorServices = () => {
   useEffect(() => {
     const revealOnScroll = () => {
@@ -66,19 +68,34 @@ const ElevatorServices = () => {
 
         <div className="elv-grid-standard">
           <ElevatorCard
-            img={passengerElevator}
+            img={elevators_6}
             title="Passenger Elevators"
-            desc="Smooth, silent & energy-efficient elevators optimized for modern apartments and high-traffic offices."
+            desc="Passenger elevators are engineered to handle the daily flow of modern high-rise apartments and high-traffic office buildings. The focus for these systems is on energy efficiency and providing a smooth, silent ride that minimizes wait times. They often feature high-end aesthetics, such as glass-walled panoramic designs, to complement the architecture of contemporary developments."
           />
           <ElevatorCard
-            img={homeLift}
+            img={elevators_5}
             title="Home Lifts"
-            desc="Compact, customizable, and pit-less designs perfectly suited for luxury villas and duplex homes."
+            desc="Specifically designed for private residences, luxury villas, and duplex homes, home lifts prioritize a small footprint and minimal structural impact. These models are often pit-less meaning they do not require deep excavation under the shaft, making them easier to install in existing homes."
           />
           <ElevatorCard
-            img={hospitalElevator}
+            img={elevators_4}
             title="Hospital Elevators"
-            desc="Hygienic, extra-spacious, and jerk-free elevators specifically designed for stretchers and medical use."
+            desc="Hospital elevators are mission-critical medical equipment designed specifically for the transport of stretchers and medical teams. Because patient comfort is paramount, these elevators utilize specialized drive systems to ensure entirely jerk-free starts and stops. They are characterized by extra-spacious interiors to accommodate medical beds and equipment, along with hygienic finishes that meet the strict sanitary standards of healthcare facilities."
+          />
+           <ElevatorCard
+            img={elevators_3}
+            title="Stretcher Elevators"
+            desc="Designed specifically for clinics and smaller medical facilities, these elevators focus on depth rather than width. This configuration allows for the safe and efficient transport of a standard medical stretcher alongside two or three attendants. The control systems are programmed for gentle acceleration and deceleration to prevent any physical discomfort for patients during transit."
+          />
+          <ElevatorCard
+            img={elevators_2}
+            title="Bed Elevators"
+            desc="These high-capacity units are engineered for major multi-specialty hospitals. They feature wide-opening telescopic doors that allow for the simultaneous entry of oversized hospital beds, oxygen cylinders, and life-support equipment. The interiors are finished with medical-grade stainless steel for easy sterilization and are equipped with backup power systems to ensure they never stall during emergency patient transfers."
+          />
+          <ElevatorCard
+            img={elevators_1}
+            title="Service & Freight Elevators"
+            desc="The final category focuses on heavy-duty performance and durability. While they maintain the clean aesthetic of the hospital range, these elevators are built with reinforced flooring and wall bumpers to withstand the impact of heavy trolleys, laundry carts, and supply crates. They serve as the backbone of facility operations, ensuring that logistics move smoothly behind the scenes without interfering with patient areas."
           />
         </div>
       </section>
@@ -103,7 +120,7 @@ const ElevatorServices = () => {
         <div className="elv-cta-content">
           <h2>Elevate Your Lifestyle Today</h2>
           <p>Contact our experts for a customized quote and site inspection.</p>
-          <a href="https://wa.me/918328041624" className="elv-btn-whatsapp" target="_blank" rel="noopener noreferrer">
+          <a href="https://wa.me/8328041624" className="elv-btn-whatsapp" target="_blank" rel="noopener noreferrer">
             <i className="fa-brands fa-whatsapp" /> INQUIRE ON WHATSAPP
           </a>
         </div>

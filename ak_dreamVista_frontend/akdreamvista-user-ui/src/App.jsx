@@ -1,8 +1,10 @@
 import { Routes, Route } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
 import PrivateRoute from "./components/PrivateRoute";
-
-// PAGES
+import Invoices from "./components/Invoices";
+import ChangePassword from "./components/ChangePassword";
+import Contact from "./components/Contact";
+// PAGES  
 import Home from "./pages/Home";
 import BuyProperty from "./pages/BuyProperty";
 import SellProperty from "./pages/SellProperty";
@@ -40,25 +42,10 @@ export default function App() {
         <Route path="/elevators" element={<Elevators />} />
         <Route path="/about" element={<About />} />
         <Route path="/help" element={<Help />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/invoices" element={<Invoices />} />
 <Route path="/property-details/:id" element={<PropertyDetails />} />
-        {/* ================= ADMIN ONLY ================= 
-        <Route
-          path="/admin-dashboard"
-          element={
-            <PrivateRoute role="ADMIN">
-              <AdminDashboard />
-            </PrivateRoute>
-          }
-        />
-
-        <Route
-          path="/add-property"
-          element={
-            <PrivateRoute role="ADMIN">
-              <AddProperty />
-            </PrivateRoute>
-          }
-        />*/}
+       
 
       </Route>
 
@@ -68,7 +55,7 @@ export default function App() {
       <Route path="/admin-forgot-password" element={<AdminForgotPassword />} /> */}
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
-
+<Route path="/change-password" element={<ChangePassword />} />
      
       <Route path="/user-forgot-password" element={<UserForgotPassword />} />
 

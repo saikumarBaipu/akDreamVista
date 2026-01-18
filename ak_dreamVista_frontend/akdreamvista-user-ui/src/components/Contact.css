@@ -1,0 +1,276 @@
+/* --- ROOT & WRAPPER --- */
+.ak-contact-page {
+   min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px;
+    background-color: #ffffff; 
+    background-image: 
+        radial-gradient(at 0% 0%, hsla(25,100%,96%,1) 0, transparent 50%), 
+        radial-gradient(at 100% 100%, hsla(25,100%,94%,1) 0, transparent 50%);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* --- MAIN CONTAINER --- */
+.ak-contact-container {
+    width: 100%;
+    max-width: 1100px;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    background: #ffffff;
+    border-radius: 40px;
+    overflow: hidden;
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.05); /* Softer shadow */
+    border: 1px solid #f0f0f0;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.ak-contact-container.active {
+   opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- LEFT SIDE: INFO SECTION --- */
+.ak-contact-info {
+    background: #ffffff;
+    padding: 60px;
+    color: #222222; /* High-contrast dark grey */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-right: 1px solid #f0f0f0;
+}
+
+.ak-info-header h2 {
+    font-size: 2.8rem;
+    font-weight: 800;
+    margin-bottom: 15px;
+    line-height: 1.1;
+    color: #222222;
+}
+
+.ak-info-header h2 span {
+    color: #ff7800;
+}
+
+.ak-info-header p {
+   color: #666666;
+    font-size: 1.1rem;
+    margin-bottom: 40px;
+    line-height: 1.6;
+}
+
+.ak-info-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.ak-info-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.ak-info-icon {
+   width: 54px;
+    height: 54px;
+    background: #fff8f2; /* Very soft orange tint */
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ff7800;
+    font-size: 1.3rem;
+    border: 1px solid #ffe4cc;
+}
+
+.ak-info-item h4 {
+   font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #999999;
+    margin-bottom: 4px;
+}
+
+.ak-info-item p {
+   font-size: 1.05rem;
+    font-weight: 700;
+    color: #222222;
+}
+
+/* --- RIGHT SIDE: FORM CARD --- */
+.ak-contact-card {
+    padding: 60px;
+    background: #ffffff;
+}
+
+.ak-contact-form {
+   display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.ak-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.ak-input-group label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #222222;
+    margin-left: 4px;
+}
+
+.ak-input-group input, 
+.ak-input-group textarea {
+   padding: 16px 20px;
+    background: #fafafa;
+    border: 1px solid #eeeeee;
+    border-radius: 16px;
+    font-size: 1rem;
+    font-family: inherit;
+    color: #222222;
+    transition: all 0.3s ease;
+}
+
+.ak-input-group input:focus, 
+.ak-input-group textarea:focus {
+    outline: none;
+    border-color: #ff7800;
+    background: #ffffff;
+    box-shadow: 0 8px 20px rgba(255, 120, 0, 0.08);
+}
+
+/* --- PREMIUM BUTTON --- */
+.ak-login-btn {
+    margin-top: 10px;
+    padding: 18px;
+    background: #ff7800;
+    color: white;
+    border: none;
+    border-radius: 16px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    transition: all 0.3s ease;
+    box-shadow: 0 12px 30px rgba(255, 120, 0, 0.25);
+}
+
+.ak-login-btn:hover:not(:disabled) {
+    background: #e66c00;
+    transform: translateY(-3px);
+    box-shadow: 0 18px 40px rgba(255, 120, 0, 0.35);
+}
+
+.ak-login-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.btn-icon {
+    font-size: 0.9rem;
+   
+}
+.ak-msg-pop.msg-success {
+    background: #f0fff4;
+    color: #22c55e;
+    border: 1px solid #dcfce7;
+    padding: 15px;
+    border-radius: 14px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.ak-login-btn:hover .btn-icon {
+    transform: translateX(5px) translateY(-5px);
+}
+/* --- RESPONSIVE --- */
+@media (max-width: 992px) {
+    .ak-contact-container {
+        grid-template-columns: 1fr;
+        margin: 20px;
+        border-radius: 30px;
+    }
+    .ak-contact-info {
+        padding: 40px;
+        border-right: none;
+        border-bottom: 1px solid #f0f0f0;
+    }
+    .ak-contact-card {
+        padding: 40px;
+    }
+}
+
+/* --- STATUS MESSAGES --- */
+.ak-msg-pop {
+    padding: 15px;
+    border-radius: 12px;
+    font-weight: 600;
+    text-align: center;
+    animation: fadeIn 0.4s ease;
+}
+
+.msg-success {
+    background: #e6fff5;
+    color: #05cd99;
+    border: 1px solid #05cd99;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- RESPONSIVE DESIGN --- */
+@media (max-width: 992px) {
+    .ak-contact-container {
+        grid-template-columns: 1fr;
+        margin: 20px;
+    }
+    .ak-contact-info {
+        padding: 40px;
+    }
+    .ak-contact-card {
+        padding: 40px;
+    }
+}
+
+@media (max-width: 600px) {
+    .ak-info-header h2 { font-size: 2rem; }
+    .ak-contact-page { padding: 20px 10px; }
+}
+.ak-login-btn {
+    margin-top: 10px;
+    padding: 18px;
+    background: #ff7800;
+    color: #ffffff;
+    border: none;
+    border-radius: 16px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 10px 25px rgba(255, 120, 0, 0.3);
+}
+.ak-login-btn:hover:not(:disabled) {
+    background: #e66c00;
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 15px 35px rgba(255, 120, 0, 0.4);
+}
+.ak-login-btn:active {
+    transform: translateY(0) scale(1);
+}

@@ -1,0 +1,59 @@
+/* Title Color */
+.hd-title span {
+  color: #fb6a19 !important;
+}
+
+/* Range Slider Styles */
+.range-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.range-val {
+  color: #fb6a19;
+  font-weight: bold;
+  font-family: 'JetBrains Mono', monospace; /* Professional look */
+}
+
+/* Form Grid Styling (If needed) */
+.search-form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  align-items: flex-end;
+  background: #111; /* Based on image_191c2c */
+  padding: 30px;
+  border-radius: 8px;
+}
+
+.search-form-grid label {
+  color: #fff;
+  margin-bottom: 8px;
+  display: block;
+  font-size: 13px;
+}
+
+.search-form-grid input[type="text"],
+.search-form-grid select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #444;
+  background: #fff;
+  border-radius: 4px;
+}
+
+.search-button {
+  background: #fb6a19;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  font-weight: bold;
+  cursor: pointer;
+  width: 100%;
+  border-radius: 4px;
+  transition: 0.3s;
+}
+
+.search-button:hover {
+  background: #e55a15;
+}

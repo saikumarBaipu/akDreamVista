@@ -19,7 +19,7 @@ const [editingProperty, setEditingProperty] = useState(null);
   const token = localStorage.getItem("token");
   const handleDownloadInvoice = async (propertyId) => {
   try {
-    const response = await fetch(`http://23.20.0.192:8080/api/payment/invoice/property/${propertyId}`, {
+    const response = await fetch(`http://localhost:8080/api/payment/invoice/property/${propertyId}`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`, // Pass the token here
@@ -65,54 +65,89 @@ const formatPrice = (val) => {
       console.error("No token found");
       return;
     }
-let url = "http://23.20.0.192:8080/api/properties/all";
+let url = "http://localhost:8080/api/properties/all";
 
     
 
     if (filter === "PAID_PROPERTIES") {
-      url = "http://23.20.0.192:8080/api/properties/by-fee-status?paid=true";
+      url = "http://localhost:8080/api/properties/by-fee-status?paid=true";
     }
     if (filter === "UNPAID_PROPERTIES") {
-      url = "http://23.20.0.192:8080/api/properties/by-fee-status?paid=false";
+      url = "http://localhost:8080/api/properties/by-fee-status?paid=false";
+    }
+const fetchData = async () => {
+  try {
+    setLoading(true);
+    const res = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json"
+      }
+    });
+
+    // Read the response body as text
+    const rawResponse = await res.text(); // Read as plain text to log and inspect it
+    console.log("Raw Response:", rawResponse); // Log the raw response
+
+    // Attempt to parse the response
+    let data;
+    try {
+      data = JSON.parse(rawResponse); // Parse the JSON
+      setProperties(Array.isArray(data) ? data : []);
+    } catch (jsonError) {
+      console.error("JSON Parsing Error:", jsonError);
+      alert("Received invalid JSON from the server.");
     }
 
-    const fetchData = async () => {
-      try {
-        setLoading(true);
+  } catch (err) {
+    console.error("Property fetch error:", err);
+    alert("An error occurred while fetching the properties. Please check the console for details.");
+    setProperties([]);
+  } finally {
+    setLoading(false);
+  }
+};
 
-        const res = await fetch(url, {
-          method: "GET",
-          headers: {
-            "Authorization": `Bearer ${token}`,
-            "Content-Type": "application/json"
-          }
-        });
 
-        if (res.status === 403) {
-          throw new Error("FORBIDDEN");
-        }
 
-        if (!res.ok) {
-          throw new Error("Fetch failed");
-        }
+    // const fetchData = async () => {
+    //   try {
+    //     setLoading(true);
 
-        const data = await res.json();
-        setProperties(Array.isArray(data) ? data : []);
+    //     const res = await fetch(url, {
+    //       method: "GET",
+    //       headers: {
+    //         "Authorization": `Bearer ${token}`,
+    //         "Content-Type": "application/json"
+    //       }
+    //     });
 
-      } catch (err) {
-        console.error("Property fetch error:", err);
+    //     if (res.status === 403) {
+    //       throw new Error("FORBIDDEN");
+    //     }
 
-        if (err.message === "FORBIDDEN") {
-          alert("Session expired or access denied. Please login again.");
-          localStorage.clear();
-          window.location.href = "/admin-login";
-        }
+    //     if (!res.ok) {
+    //       throw new Error("Fetch failed");
+    //     }
 
-        setProperties([]);
-      } finally {
-        setLoading(false);
-      }
-    };
+    //     const data = await res.json();
+    //     setProperties(Array.isArray(data) ? data : []);
+
+    //   } catch (err) {
+    //     console.error("Property fetch error:", err);
+
+    //     if (err.message === "FORBIDDEN") {
+    //       alert("Session expired or access denied. Please login again.");
+    //       localStorage.clear();
+    //       window.location.href = "/admin-login";
+    //     }
+
+    //     setProperties([]);
+    //   } finally {
+    //     setLoading(false);
+    //   }
+    // };
 
     fetchData();
 
@@ -126,7 +161,7 @@ let url = "http://23.20.0.192:8080/api/properties/all";
       setDeletingId(id);
 
       const res = await fetch(
-        `http://23.20.0.192:8080/api/properties/${id}`,
+        `http://localhost:8080/api/properties/${id}`,
         {
           method: "DELETE",
           headers: {
@@ -164,14 +199,46 @@ let url = "http://23.20.0.192:8080/api/properties/all";
     <div className="table-wrapper">
 
       {/* HEADER */}
-      <div className="table-header">
+      {/* <div className="table-header">
         <h3 className="table-title">
           {mode === "INVOICE" && "Invoice Properties"}
           {mode !== "INVOICE" && filter === "ALL_PROPERTIES" && "Admin Properties"}
           {mode !== "INVOICE" && filter === "PAID_PROPERTIES" && "Fee Paid Properties"}
           {mode !== "INVOICE" && filter === "UNPAID_PROPERTIES" && "Fee Pending Properties"}
         </h3>
-      </div>
+      </div> */}
+      <div className="table-header">
+  <h3 className="table-title ap-heading">
+    {mode === "INVOICE" && (
+      <>
+        <span className="heading-black">Invoice</span>{" "}
+        <span className="heading-orange">Properties</span>
+      </>
+    )}
+
+    {mode !== "INVOICE" && filter === "ALL_PROPERTIES" && (
+      <>
+        <span className="heading-black">Admin</span>{" "}
+        <span className="heading-orange">Properties</span>
+      </>
+    )}
+
+    {mode !== "INVOICE" && filter === "PAID_PROPERTIES" && (
+      <>
+        <span className="heading-black">Fee Paid</span>{" "}
+        <span className="heading-orange">Properties</span>
+      </>
+    )}
+
+    {mode !== "INVOICE" && filter === "UNPAID_PROPERTIES" && (
+      <>
+        <span className="heading-black">Fee Pending</span>{" "}
+        <span className="heading-orange">Properties</span>
+      </>
+    )}
+  </h3>
+</div>
+
 
       {/* CONTROLS */}
       <div className="datatable-top-left">

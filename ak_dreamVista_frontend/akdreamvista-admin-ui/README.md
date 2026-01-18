@@ -20,7 +20,7 @@ npm install
 npm run dev
 ```
 
-4. Open the development URL shown in the terminal (usually http://23.20.0.192:5173).
+4. Open the development URL shown in the terminal (usually http://localhost:5173).
 
 You can now edit the React components in `src/components` and customize the layout, data,
 and styling as you like.

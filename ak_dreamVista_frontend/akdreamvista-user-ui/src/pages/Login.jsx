@@ -11,6 +11,7 @@ export default function Login() {
 
   const navigate = useNavigate();
 
+
   useEffect(() => {
     setIsActive(true);
     const token = localStorage.getItem("token");
@@ -24,7 +25,7 @@ export default function Login() {
     setMessage("");
 
     try {
-        const response = await fetch("http://23.20.0.192:8080/api/auth/signin", {
+        const response = await fetch("http://localhost:8080/api/auth/signin", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, password }),
@@ -46,27 +47,50 @@ export default function Login() {
         console.log("Login Response Data:", data);
 
         const token = data.token || data.accessToken;
-        if (token) {
-            localStorage.setItem("token", token);
-            localStorage.setItem("role", data.role || "USER");
-const expiresIn = data.expiresIn || 7200; 
-    localStorage.setItem("expiresIn", expiresIn);
-    localStorage.setItem("loginTime", Date.now().toString());
-            const userObj = {
-                id: data.id,      
-                email: data.email,
-                name: data.name || "User",
-                role: data.role
-            };
+       if (token) {
+  localStorage.setItem("token", token);
+  localStorage.setItem("role", data.role || "USER");
 
-            localStorage.setItem("USER", JSON.stringify(userObj));
-            window.dispatchEvent(new Event("authChange"));
+ let expiresIn = data.expiresIn ?? 10800000;
 
-            setMessage("✅ Welcome back! Redirecting...");
-            setTimeout(() => {
-                navigate("/");
-            }, 1000);
-        } else {
+if (expiresIn < 100000) {
+  expiresIn = expiresIn * 1000;
+}
+
+localStorage.setItem("expiresIn", expiresIn);
+localStorage.setItem("loginTime", Date.now().toString());
+
+
+  const userObj = {
+    id: data.id,
+    email: data.email,
+    name: data.name || "User",
+    role: data.role
+  };
+
+  localStorage.setItem("USER", JSON.stringify(userObj));
+  window.dispatchEvent(new Event("authChange"));
+
+  setMessage("✅ Welcome back! Redirecting...");
+
+ const redirectPath = localStorage.getItem("redirectAfterLogin");
+
+if (redirectPath) {
+  localStorage.removeItem("redirectAfterLogin");
+
+  // ✅ open property details in NEW TAB
+  window.open(redirectPath, "_blank", "noopener,noreferrer");
+
+  // ✅ keep current tab clean
+  navigate("/");
+} else {
+  navigate("/");
+}
+
+
+  
+}
+else {
             console.error("Token not found in response!");
             setMessage("❌ Error: Token not received from server");
         }

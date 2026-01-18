@@ -98,7 +98,6 @@ const PropertySale = () => {
         </a>
       </section>
 
-      {/* How it Works Section - Pin-to-Pin HTML Match */}
       <section className="slp-section">
         <div style={{ textAlign: 'center', marginBottom: '60px' }} className="slp-reveal">
           <h2 style={{ fontSize: '2.2rem', fontWeight: 800 }}>How It Works</h2>

@@ -43,10 +43,10 @@ export default function AdminDashboard() {
 
     try {
       const [propertyRes, userRes] = await Promise.all([
-        fetch("http://23.20.0.192:8080/api/properties/count", {
+        fetch("http://localhost:8080/api/properties/count", {
           headers: { Authorization: `Bearer ${token}` }
         }),
-        fetch("http://23.20.0.192:8080/api/user/count", {
+        fetch("http://localhost:8080/api/user/count", {
           headers: { Authorization: `Bearer ${token}` }
         })
       ]);
@@ -133,7 +133,7 @@ const propertyCounts = await propertyRes.json();
 
           {viewMode !== "DASHBOARD" && (
             <button className="back-btn" onClick={backToStats}>
-              <i className="fa-solid fa-arrow-left-long"></i>
+             
               Back to Stats
             </button>
           )}

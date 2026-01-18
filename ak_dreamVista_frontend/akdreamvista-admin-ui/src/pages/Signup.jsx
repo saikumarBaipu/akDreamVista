@@ -23,7 +23,7 @@ export default function Signup() {
     if (password.length < 6) return setMsg("⚠ Password must be at least 6 characters");
 
     try {
-      const res = await fetch("http://23.20.0.192:8080/api/auth/signup", {
+      const res = await fetch("http://localhost:8080/api/auth/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password, role: "USER" }),
@@ -36,7 +36,7 @@ export default function Signup() {
       setTimeout(() => navigate("/login"), 1500);
 
     } catch (err) {
-      setMsg("❌ Server error. Please try again later.");
+      setMsg("⚠️ Service is temporarily unavailable. Please try again later.. Please try again later.");
     }
   };
 

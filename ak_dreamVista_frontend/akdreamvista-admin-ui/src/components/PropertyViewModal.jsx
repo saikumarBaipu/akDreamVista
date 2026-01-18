@@ -2,109 +2,159 @@ import React, { useState } from "react";
 import "./PropertyViewModal.css";
 
 export default function PropertyViewModal({ property, onClose }) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [activeTab, setActiveTab] = useState("image");
+
   if (!property) return null;
 
+  // Formatting helpers
   const formatPrice = (val) => {
-    if (val === null || val === undefined) return "0.00";
-    return new Intl.NumberFormat("en-IN", {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    }).format(val);
+    if (!val || isNaN(val)) return "0.00";
+    const num = parseFloat(val);
+    if (num >= 10000000) return (num / 10000000).toFixed(2) + " Cr";
+    if (num >= 100000) return (num / 100000).toFixed(2) + " L";
+    return new Intl.NumberFormat("en-IN").format(num);
   };
 
-  const images = Array.isArray(property.images) && property.images.length > 0
-    ? property.images
-    : property.propertiesImageUrl
-    ? [property.propertiesImageUrl]
-    : [];
-
-  const [current, setCurrent] = useState(0);
-
-  const nextImage = (e) => {
-    e.stopPropagation();
-    setCurrent((prev) => (prev + 1) % images.length);
+  const getYoutubeEmbedUrl = (url) => {
+    if (!url) return null;
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+    const match = url.match(regExp);
+    return (match && match[2].length === 11) ? `https://www.youtube.com/embed/${match[2]}` : null;
   };
 
-  const prevImage = (e) => {
-    e.stopPropagation();
-    setCurrent((prev) => (prev - 1 + images.length) % images.length);
-  };
+  const previewUrls = property.images?.map((img) => img.imageUrl) || [];
+
+  const nextImage = () => setCurrentIndex((prev) => (prev === previewUrls.length - 1 ? 0 : prev + 1));
+  const prevImage = () => setCurrentIndex((prev) => (prev === 0 ? previewUrls.length - 1 : prev - 1));
 
   return (
     <div className="ap-modal-overlay" onClick={onClose}>
-      <div className="ap-modal-box" onClick={(e) => e.stopPropagation()}>
-        
-        <div className="ap-modal-header">
-          <h3>PROPERTY <span>DETAILS</span></h3>
-          <button onClick={onClose} className="ap-close-btn">✖</button>
+      <div className="ap-container view-mode" onClick={(e) => e.stopPropagation()}>
+        <div className="ap-header">
+          <h3>Property <span>Details</span></h3>
+          <p>Full listing information and media</p>
+          <button className="close-x" onClick={onClose}>&times;</button>
         </div>
 
-        <div className="ap-modal-body">
-          {/* LEFT: INFO SECTION */}
-          <div className="ap-modal-info">
-            <div className="ap-info-grid">
-              <div className="info-item">
-                <label>Title</label>
-                <p>{property.propertiesTitle || "N/A"}</p>
+        <div className="ap-content-grid glass-card">
+          {/* LEFT SIDE: DETAILS */}
+          <div className="ap-details-view">
+            <div className="ap-info-group">
+              <label>Property Title</label>
+              <h4>{property.propertiesTitle}</h4>
+            </div>
+
+            <div className="ap-input-row">
+              <div className="ap-info-group">
+                <label>Code</label>
+                <p>{property.propertyCode || "N/A"}</p>
               </div>
-              <div className="info-item">
-                <label>Property Type</label>
-                <p className="p-type-tag">{property.propertiesType || "N/A"}</p>
+              <div className="ap-info-group">
+                <label>Type</label>
+                <p>{property.propertiesType}</p>
               </div>
-              <div className="info-item">
+            </div>
+
+            <div className="ap-input-row">
+              <div className="ap-info-group">
                 <label>Land Area</label>
-                <p>{property.landArea || "0"} Sq.Yds</p>
+                <p>{property.landArea} Sq.Yds</p>
               </div>
-              <div className="info-item">
+              <div className="ap-info-group">
                 <label>Facing</label>
-                <p>{property.facing || "N/A"}</p>
+                <p>{property.facing}</p>
               </div>
-              <div className="info-item">
-                <label>Status</label>
-                <p>{property.propertyStatus || "N/A"}</p>
+            </div>
+
+            <div className="ap-input-row">
+              <div className="ap-info-group">
+                <label>Price</label>
+                <p className="view-price">₹ {formatPrice(property.price)}</p>
               </div>
-              <div className="info-item">
+              <div className="ap-info-group">
                 <label>Fee Status</label>
-                <div className={`status-pill ${property.isFeePaid ? "paid" : "unpaid"}`}>
-                   {property.isFeePaid ? "● Paid" : "● Unpaid"}
+                <span className={`status-pill ${property.isFeePaid ? "paid" : "unpaid"}`}>
+                  {property.isFeePaid ? "Paid" : "Pending"}
+                </span>
+              </div>
+            </div>
+
+            <div className="ap-info-group">
+              <label>Owner Contact</label>
+              <p className="contact-text">{property.ownerContact}</p>
+            </div>
+          </div>
+
+          {/* RIGHT SIDE: MEDIA (MIRRORS EDIT PREVIEW) */}
+          <aside className="ap-preview-section">
+            <h4 className="preview-label">Media Gallery</h4>
+            <div className="ap-preview-card">
+              <div className="ap-preview-media-box">
+                {activeTab === "video" && property.youtubeLink ? (
+                  <iframe 
+                    className="preview-video" 
+                    src={getYoutubeEmbedUrl(property.youtubeLink)} 
+                    title="Video"
+                    frameBorder="0"
+                    allowFullScreen
+                  ></iframe>
+                ) : (
+                  <div className="gallery-container">
+                    {previewUrls.length > 0 ? (
+                      <>
+                        <div className="image-counter">
+                          {currentIndex + 1} / {previewUrls.length}
+                        </div>
+                        <img 
+                          src={previewUrls[currentIndex]} 
+                          alt="Property" 
+                          className="gallery-img-active"
+                        />
+                        {previewUrls.length > 1 && (
+                          <>
+                            <button className="nav-btn prev" onClick={prevImage}>
+                              <i className="fa-solid fa-chevron-left"></i>
+                            </button>
+                            <button className="nav-btn next" onClick={nextImage}>
+                              <i className="fa-solid fa-chevron-right"></i>
+                            </button>
+                          </>
+                        )}
+                      </>
+                    ) : (
+                      <div className="no-img-placeholder">
+                        <i className="fa-solid fa-image"></i>
+                        <p>No Images Available</p>
+                      </div>
+                    )}
+                  </div>
+                )}
+                
+                <div className="media-switcher">
+                  <button 
+                    className={activeTab === "image" ? "active" : ""} 
+                    onClick={() => setActiveTab("image")}
+                  >
+                    <i className="fa-solid fa-image"></i>
+                  </button>
+                  {property.youtubeLink && (
+                    <button 
+                      className={activeTab === "video" ? "active" : ""} 
+                      onClick={() => setActiveTab("video")}
+                    >
+                      <i className="fa-brands fa-youtube"></i>
+                    </button>
+                  )}
                 </div>
               </div>
-              <div className="info-item full-width">
-                <label>Owner Contact</label>
-                <p className="contact-p">{property.ownerContact || "N/A"}</p>
+              <div className="ap-preview-details">
+                <span className="p-type">{property.propertyStatus}</span>
+                <h5>Listing Preview</h5>
+                <p className="p-price">₹ {formatPrice(property.price)}</p>
               </div>
             </div>
-
-            {property.youtubeLink && (
-              <a href={property.youtubeLink} target="_blank" rel="noreferrer" className="ap-yt-btn">
-                ▶ Watch Property Video
-              </a>
-            )}
-          </div>
-
-          {/* RIGHT: VISUALS SECTION */}
-          <div className="ap-modal-visuals">
-            <div className="ap-carousel">
-              {images.length > 0 ? (
-                <img src={images[current]} alt="Property" />
-              ) : (
-                <div className="no-img-placeholder">No Image Available</div>
-              )}
-              
-              {images.length > 1 && (
-                <>
-                  <button className="nav left" onClick={prevImage}>‹</button>
-                  <button className="nav right" onClick={nextImage}>›</button>
-                  <div className="img-counter">{current + 1} / {images.length}</div>
-                </>
-              )}
-            </div>
-            
-            <div className="ap-price-card">
-              <small>Price Range</small>
-              <div className="price-val">₹ {formatPrice(property.price)}</div>
-            </div>
-          </div>
+          </aside>
         </div>
       </div>
     </div>

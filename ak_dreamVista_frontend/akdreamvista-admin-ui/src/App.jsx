@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
 import PrivateRoute from "./components/PrivateRoute";
-
+import AdminContact from "./components/AdminContact";
 // PAGES
 import Home from "./pages/Home";
 import BuyProperty from "./pages/BuyProperty";
@@ -59,6 +59,15 @@ export default function App() {
             </PrivateRoute>
           }
         />
+        <Route
+  path="/admin-messages"
+  element={
+    <PrivateRoute role="ADMIN">
+      <AdminContact />
+    </PrivateRoute>
+  }
+/>
+
 
       </Route>
 
